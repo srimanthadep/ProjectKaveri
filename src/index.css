@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    
+    /* Modern Professional White & Green Luxury Palette */
+    --emerald-primary: #059669;
+    --emerald-deep: #064E3B;
+    --emerald-dark: #042E23;
+    --emerald-light: #10B981;
+    --emerald-accent: #34D399;
+    --mint-subtle: #ECFDF5;
+    --mint-border: #D1FAE5;
+    --white-bg: #FFFFFF;
+    --light-bg: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --slate-text: #0F172A;
+    --slate-muted: #64748B;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #FAFCFB;
+    color: #0F172A;
+    overflow-x: hidden;
+  }
+
+  .dark body {
+    background-color: #090E11;
+    color: #F8FAFC;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom Modern Emerald & Green Utilities */
+.emerald-pattern {
+  background-image: radial-gradient(#10B981 0.75px, transparent 0.75px);
+  background-size: 24px 24px;
+}
+
+.emerald-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(5, 150, 105, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(5, 150, 105, 0.04) 1px, transparent 1px);
+}
+
+.dark .emerald-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
+}
+
+.emerald-border {
+  border-color: rgba(5, 150, 105, 0.15);
+}
+
+.dark .emerald-border {
+  border-color: rgba(52, 211, 153, 0.15);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.dark .glass-panel {
+  background: rgba(13, 22, 28, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-card-dark {
+  background: rgba(8, 20, 16, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.emerald-gradient-text {
+  background: linear-gradient(135deg, #059669 0%, #10B981 50%, #047857 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .emerald-gradient-text {
+  background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #6EE7B7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(5, 150, 105, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(5, 150, 105, 0.5);
+}
+
