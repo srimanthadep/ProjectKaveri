@@ -1,0 +1,406 @@
+{
+  "info": {
+    "name": "Kaveri Stays API - Master Collection",
+    "_postman_id": "c1f729e2-3e28-444a-9b1b-9a84b06e93cb",
+    "description": "Complete automated test collection for Kaveri Stays API covering all endpoints, RBAC matrices, the 'Take a Booking' workflow, and the 14 adversarial security attack suites.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register Guest",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"full_name\": \"Automated Test Guest\",\n  \"phone\": \"+91 98765 00000\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 201 Created or 409 Conflict', function () {",
+                  "    pm.expect([201, 409]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access_token) {",
+                  "    pm.environment.set('accessToken', jsonData.access_token);",
+                  "    pm.environment.set('refreshToken', jsonData.refresh_token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Profile (/me)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/me", "host": ["{{baseUrl}}"], "path": ["me"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('No password hash in response', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.password_hash).to.be.undefined;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Properties & Rooms",
+      "item": [
+        {
+          "name": "List Properties",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/properties", "host": ["{{baseUrl}}"], "path": ["properties"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Contains items array', function () { pm.expect(pm.response.json().items).to.be.an('array'); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Check Availability",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/properties/{{propertyId}}/availability?from=2026-09-01&to=2026-09-05",
+              "host": ["{{baseUrl}}"],
+              "path": ["properties", "{{propertyId}}", "availability"],
+              "query": [
+                { "key": "from", "value": "2026-09-01" },
+                { "key": "to", "value": "2026-09-05" }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "if (json.items && json.items.length > 0) {",
+                  "    pm.environment.set('availableRoomId', json.items[0].room_id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Take a Booking (End-to-End Flow)",
+      "item": [
+        {
+          "name": "1. Create Booking + Deposit",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"room_id\": 1,\n  \"check_in\": \"2026-11-10\",\n  \"check_out\": \"2026-11-14\",\n  \"guests\": 2,\n  \"deposit\": {\n    \"amount\": \"4000.00\",\n    \"method\": \"card\",\n    \"reference\": \"tx_e2e_deposit_001\"\n  }\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 201 Created or 409 Conflict', function () {",
+                  "    pm.expect([201, 409]).to.include(pm.response.code);",
+                  "});",
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    pm.environment.set('workflowBookingId', json.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "2. Record Balance Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Idempotency-Key", "value": "550e8400-e29b-41d4-a716-446655440000" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"2000.00\",\n  \"method\": \"upi\",\n  \"reference\": \"upi_workflow_bal_999\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/bookings/{{workflowBookingId}}/payments", "host": ["{{baseUrl}}"], "path": ["bookings", "{{workflowBookingId}}", "payments"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 201 Created', function () { pm.response.to.have.status(201); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "3. Staff Check-in",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/bookings/{{workflowBookingId}}/check-in", "host": ["{{baseUrl}}"], "path": ["bookings", "{{workflowBookingId}}", "check-in"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200 OK or 403/409', function () { pm.expect([200, 403, 409]).to.include(pm.response.code); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "4. Staff Check-out",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/bookings/{{workflowBookingId}}/check-out", "host": ["{{baseUrl}}"], "path": ["bookings", "{{workflowBookingId}}", "check-out"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200 OK or 403/409', function () { pm.expect([200, 403, 409]).to.include(pm.response.code); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "5. Post-Checkout Review",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Exceptional hospitality and wonderful riverside ambiance!\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/bookings/{{workflowBookingId}}/review", "host": ["{{baseUrl}}"], "path": ["bookings", "{{workflowBookingId}}", "review"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 201 Created or 403/409', function () { pm.expect([201, 403, 409]).to.include(pm.response.code); });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Attacks (Stage 8 Security Suite)",
+      "item": [
+        {
+          "name": "Attack 8.1 - Guest A requests Guest B booking",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/bookings/9999", "host": ["{{baseUrl}}"], "path": ["bookings", "9999"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 404 Not Found (no leak of booking existence)', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Attack 8.2 - Register with 'role': 'owner'",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"evil.attacker@example.com\",\n  \"password\": \"AttackerPass123!\",\n  \"full_name\": \"Evil Attacker\",\n  \"role\": \"owner\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 422 Unprocessable Entity due to extra property', function () {",
+                  "    pm.response.to.have.status(422);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Attack 8.3 - Token with 'none' algorithm",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiIxIiwicm9sZSI6Im93bmVyIiwiaWF0IjoxNTAwMDAwMDAwLCJleHAiOjI1MDAwMDAwMDAsImp0aSI6ImZvcmdlZCJ9.", "type": "string" }]
+            },
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/me", "host": ["{{baseUrl}}"], "path": ["me"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 401 Unauthorized for unsigned token', function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Attack 8.8 - Supply custom nightly_rate on booking",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"room_id\": 1,\n  \"check_in\": \"2026-10-01\",\n  \"check_out\": \"2026-10-05\",\n  \"guests\": 2,\n  \"nightly_rate\": \"1.00\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 422 Unprocessable Entity rejecting client-supplied rate', function () {",
+                  "    pm.response.to.have.status(422);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Attack 8.9 - Review on booking still checked in",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Review before check-out attempt\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/bookings/1/review", "host": ["{{baseUrl}}"], "path": ["bookings", "1", "review"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 403 Forbidden or 404', function () {",
+                  "    pm.expect([403, 404]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

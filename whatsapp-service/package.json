@@ -1,0 +1,22 @@
+{
+  "name": "kaveri-whatsapp-service",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WhatsApp inbox, connection lifecycle, background queue, and Gemini concierge bot for Kaveri Stays. Talks to the FastAPI backend over HTTP as a service account; never touches the Kaveri database directly.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.9",
+    "better-sqlite3": "^11.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "pino": "^9.5.0",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.1"
+  }
+}

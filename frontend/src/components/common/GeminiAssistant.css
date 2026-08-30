@@ -1,0 +1,549 @@
+/* ==========================================================================
+   Floating Gemini Assistant — glassmorphic copilot widget.
+   Palette matches the Kaveri brand tokens (pine green + gold) rather than
+   the generic orange in the reference spec.
+   ========================================================================== */
+
+.gf-container {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+}
+
+/* -- Floating trigger button ------------------------------------------- */
+
+.gf-trigger {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(29, 62, 55, 0.1);
+  box-shadow: 0 8px 32px rgba(12, 30, 26, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  padding: 0;
+}
+
+.gf-logo-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: gf-rotate-logo 12s linear infinite;
+}
+
+.gf-trigger:hover .gf-logo-img {
+  transform: scale(1.08);
+}
+
+.gf-trigger.gf-thinking .gf-logo-img {
+  animation: gf-rotate-logo 2s linear infinite;
+}
+
+.gf-trigger:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 36px rgba(12, 30, 26, 0.2);
+  background: #ffffff;
+}
+
+.gf-trigger:active {
+  transform: scale(0.96) translateY(0);
+}
+
+.gf-trigger:focus-visible {
+  outline: 2px solid #C59B27;
+  outline-offset: 3px;
+}
+
+/* Small unread/attention dot shown before first open. */
+.gf-trigger-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #C59B27;
+  border: 2px solid #FAF8F4;
+}
+
+/* -- Chat panel ---------------------------------------------------------- */
+
+.gf-panel {
+  position: absolute;
+  bottom: 76px;
+  right: 0;
+  width: 380px;
+  height: 580px;
+  max-height: calc(85vh - 100px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 50px rgba(12, 30, 26, 0.18);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10000;
+}
+
+.gf-panel.gf-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* -- Header --------------------------------------------------------------- */
+
+.gf-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(29, 62, 55, 0.08);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(197, 155, 39, 0.06));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.gf-header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gf-header-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(29, 62, 55, 0.12);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.gf-header-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: gf-rotate-logo 20s linear infinite;
+}
+
+.gf-header-name {
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: #1D3E37;
+  display: block;
+}
+
+.gf-header-sub {
+  font-size: 11px;
+  color: #6F6F68;
+  margin: 0;
+}
+
+.gf-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #545B56;
+  font-weight: 500;
+}
+
+.gf-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2F6154;
+  box-shadow: 0 0 8px rgba(47, 97, 84, 0.6);
+  animation: gf-pulse-dot 2s infinite;
+}
+
+.gf-close-btn {
+  background: transparent;
+  border: none;
+  color: #6F6F68;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.gf-close-btn:hover {
+  background: rgba(29, 62, 55, 0.06);
+  color: #1D3E37;
+}
+
+/* -- Shortcuts bar --------------------------------------------------------- */
+
+.gf-shortcuts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(29, 62, 55, 0.06);
+  background: rgba(244, 242, 237, 0.6);
+  padding: 8px 14px;
+  font-size: 11px;
+  overflow-x: auto;
+  flex-shrink: 0;
+  scrollbar-width: none;
+}
+.gf-shortcuts::-webkit-scrollbar { display: none; }
+
+.gf-shortcut-chip {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(29, 62, 55, 0.1);
+  color: #3C463F;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.gf-shortcut-chip:hover {
+  border-color: #C59B27;
+  color: #1D3E37;
+  background: rgba(197, 155, 39, 0.08);
+}
+
+/* -- Messages -------------------------------------------------------------- */
+
+.gf-messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gf-message {
+  display: flex;
+  flex-direction: column;
+  max-width: 84%;
+  animation: gf-fade-in 0.25s ease forwards;
+}
+
+.gf-message.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.gf-message.model {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.gf-bubble {
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.gf-message.user .gf-bubble {
+  background: #1D3E37;
+  color: #FAF8F4;
+  border-bottom-right-radius: 4px;
+}
+
+.gf-message.model .gf-bubble {
+  background: #fff;
+  color: #1D3E37;
+  border: 1px solid rgba(29, 62, 55, 0.08);
+  border-bottom-left-radius: 4px;
+}
+
+.gf-message-time {
+  font-size: 10px;
+  color: #9A958A;
+  margin-top: 3px;
+  padding: 0 4px;
+}
+
+.gf-bubble-error {
+  border-color: rgba(168, 51, 43, 0.25) !important;
+  background: #FBECEA !important;
+  color: #A8332B !important;
+}
+
+/* Action badges parsed from response keywords. */
+.gf-bubble-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(29, 62, 55, 0.08);
+}
+
+.gf-bubble-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #2F6154;
+  background: rgba(47, 97, 84, 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gf-bubble-action:hover {
+  background: #1D3E37;
+  color: #FAF8F4;
+}
+
+/* -- Typing indicator -------------------------------------------------- */
+
+.gf-typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 4px;
+}
+
+.gf-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C59B27;
+  opacity: 0.5;
+  animation: gf-typing-bounce 1.4s infinite ease-in-out both;
+}
+.gf-typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.gf-typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+/* -- Suggestion chips ------------------------------------------------- */
+
+.gf-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px 12px;
+}
+
+.gf-suggestions-title {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9A958A;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gf-chips-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gf-chip {
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(29, 62, 55, 0.04);
+  border: 1px solid rgba(29, 62, 55, 0.08);
+  color: #3C463F;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.gf-chip:hover {
+  background: rgba(197, 155, 39, 0.1);
+  border-color: rgba(197, 155, 39, 0.4);
+  color: #1D3E37;
+  transform: translateY(-1px);
+}
+
+/* -- Footer / input --------------------------------------------------- */
+
+.gf-footer {
+  padding: 12px 16px 14px;
+  border-top: 1px solid rgba(29, 62, 55, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.gf-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gf-input-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.gf-input {
+  width: 100%;
+  padding: 9px 38px 9px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(29, 62, 55, 0.15);
+  font-size: 13px;
+  outline: none;
+  background: #fff;
+  color: #1D3E37;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gf-input::placeholder { color: #9A958A; }
+
+.gf-input:focus {
+  border-color: #C59B27;
+  box-shadow: 0 0 0 3px rgba(197, 155, 39, 0.15);
+}
+
+.gf-input:disabled {
+  background: #F4F2ED;
+  cursor: not-allowed;
+}
+
+.gf-voice-btn {
+  position: absolute;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: none;
+  color: #6F6F68;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.15s ease;
+}
+
+.gf-voice-btn:hover:not(:disabled) {
+  color: #C59B27;
+  background: rgba(197, 155, 39, 0.1);
+}
+
+.gf-voice-btn.active {
+  color: #A8332B;
+  background: rgba(168, 51, 43, 0.1);
+  animation: gf-pulse-dot 1.4s infinite;
+}
+
+.gf-voice-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.gf-send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #1D3E37;
+  border: none;
+  color: #FAF8F4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.gf-send-btn:hover:not(:disabled) {
+  background: #17332D;
+  transform: scale(1.05);
+}
+
+.gf-send-btn:active:not(:disabled) { transform: scale(0.94); }
+
+.gf-send-btn:disabled {
+  background: #D3CEC2;
+  cursor: not-allowed;
+}
+
+.gf-disclaimer {
+  font-size: 9.5px;
+  color: #9A958A;
+  text-align: center;
+  margin: 0;
+}
+
+/* -- Keyframes ---------------------------------------------------------- */
+
+@keyframes gf-rotate-logo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gf-pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+@keyframes gf-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gf-typing-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* -- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  .gf-container {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .gf-panel {
+    width: calc(100vw - 32px);
+    height: 70vh;
+    max-height: 70vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gf-logo-img,
+  .gf-header-avatar img {
+    animation: none;
+  }
+}

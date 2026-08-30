@@ -1,0 +1,53 @@
+.stack-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 600px;
+  user-select: none;
+}
+
+.card-rotate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  will-change: transform;
+}
+
+.card-rotate-disabled {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.card {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.45);
+  background-color: #183028;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.card img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}

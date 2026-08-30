@@ -1,0 +1,345 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Kaveri Stays — Design Tokens
+   Palette: pine green + warm cream + muted gold.
+   Tailwind's emerald/slate/teal scales are remapped so existing utility
+   classes across the app resolve to the brand palette.
+   ========================================================================== */
+
+@theme {
+  /* -- Typography ------------------------------------------------------- */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Newsreader', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-display: 'Newsreader', ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', monospace;
+
+  /* Type scale — tightened tracking on the larger steps so display text
+     reads as one confident block rather than spaced-out letters. */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1.45;
+  --text-2xs--letter-spacing: 0.01em;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.6;
+
+  --text-base: 0.9375rem;
+  --text-base--line-height: 1.65;
+
+  --text-lg: 1.0625rem;
+  --text-lg--line-height: 1.6;
+  --text-lg--letter-spacing: -0.005em;
+
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.45;
+  --text-xl--letter-spacing: -0.01em;
+
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.3;
+  --text-2xl--letter-spacing: -0.015em;
+
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 1.22;
+  --text-3xl--letter-spacing: -0.02em;
+
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 1.14;
+  --text-4xl--letter-spacing: -0.023em;
+
+  --text-5xl: 2.875rem;
+  --text-5xl--line-height: 1.08;
+  --text-5xl--letter-spacing: -0.026em;
+
+  --text-6xl: 3.5rem;
+  --text-6xl--line-height: 1.04;
+  --text-6xl--letter-spacing: -0.029em;
+
+  --text-7xl: 4.25rem;
+  --text-7xl--line-height: 1;
+  --text-7xl--letter-spacing: -0.032em;
+
+  /* -- Brand: pine (mapped over emerald + teal) ------------------------- */
+  --color-emerald-50: #F3F6F4;
+  --color-emerald-100: #E4EBE7;
+  --color-emerald-200: #C7D6CF;
+  --color-emerald-300: #C59B27;
+  --color-emerald-400: #B98F1F;
+  --color-emerald-500: #2F6154;
+  --color-emerald-600: #1D3E37;
+  --color-emerald-700: #17332D;
+  --color-emerald-800: #112722;
+  --color-emerald-900: #0C1E1A;
+  --color-emerald-950: #071310;
+
+  --color-teal-50: #F3F6F4;
+  --color-teal-100: #E4EBE7;
+  --color-teal-200: #C7D6CF;
+  --color-teal-500: #2F6154;
+  --color-teal-600: #1D3E37;
+  --color-teal-700: #17332D;
+  --color-teal-800: #112722;
+  --color-teal-900: #0C1E1A;
+  --color-teal-950: #071310;
+
+  /* -- Neutrals: warm greys (mapped over slate) -------------------------
+     Rebalanced for contrast. slate-400 and up all pass 4.5:1 on cream. */
+  --color-slate-50: #FBFAF8;
+  --color-slate-100: #F4F2ED;
+  --color-slate-200: #E7E3DA;
+  --color-slate-300: #D3CEC2;
+  --color-slate-400: #9A958A;
+  --color-slate-500: #6F6F68;
+  --color-slate-600: #545B56;
+  --color-slate-700: #3C463F;
+  --color-slate-800: #253029;
+  --color-slate-900: #16201B;
+  --color-slate-950: #0C1310;
+
+  /* -- Surfaces --------------------------------------------------------- */
+  --color-canvas: #FAF8F4;
+  --color-surface: #FFFFFF;
+  --color-line: #E7E3DA;
+  --color-ink: #1D3E37;
+  --color-gold: #C59B27;
+
+  /* -- Radii: one calm scale ------------------------------------------- */
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.125rem;
+  --radius-3xl: 1.5rem;
+
+  /* -- Elevation: low-spread, tinted with the brand ink ---------------- */
+  --shadow-xs: 0 1px 2px 0 rgb(22 32 27 / 0.04);
+  --shadow-sm: 0 1px 2px 0 rgb(22 32 27 / 0.05), 0 1px 3px 0 rgb(22 32 27 / 0.04);
+  --shadow-md: 0 2px 4px -1px rgb(22 32 27 / 0.06), 0 4px 12px -2px rgb(22 32 27 / 0.06);
+  --shadow-lg: 0 4px 8px -2px rgb(22 32 27 / 0.06), 0 12px 28px -6px rgb(22 32 27 / 0.09);
+  --shadow-xl: 0 8px 16px -4px rgb(22 32 27 / 0.07), 0 24px 48px -12px rgb(22 32 27 / 0.12);
+  --shadow-2xl: 0 32px 64px -16px rgb(22 32 27 / 0.18);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    letter-spacing: -0.006em;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-variant-ligatures: common-ligatures contextual;
+  }
+
+  /* Light mode only — dark class is a no-op by design. */
+  .dark,
+  .dark body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  /* Display type. Weight comes from utilities; these set the family,
+     the optical size, and the tracking that size demands. */
+  h1, h2, h3, h4, h5, .font-display {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--color-ink);
+  }
+
+  h5, h6 {
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  h6 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Numerals line up in tables, metric cards and money columns. */
+  table, .tabular, [data-numeric] {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1, "cv01" 1;
+  }
+
+  /* Visible, consistent keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
+
+  /* Inputs inherit the UI font instead of the browser default. */
+  input, textarea, select, button {
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-slate-400);
+    opacity: 1;
+  }
+
+  /* Native date/time pickers on a cream surface. */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator:hover,
+  input[type="time"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
+
+  ::selection {
+    background-color: #1D3E37;
+    color: #FAF8F4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   Typographic helpers
+   ========================================================================== */
+
+/* Eyebrow / kicker above a heading, and the label above a field.
+   Replaces the scattered `text-[10px] uppercase tracking-wider font-bold`. */
+.text-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-feature-settings: "cpsp" 1;
+}
+
+.text-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 550;
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+  color: var(--color-slate-700);
+}
+
+/* Large metric readouts on the manager / owner dashboards. */
+.text-metric {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Long-form body copy: slightly larger, more generous leading. */
+.prose-body {
+  font-size: 1rem;
+  line-height: 1.72;
+  letter-spacing: -0.004em;
+  color: var(--color-slate-600);
+  max-width: 68ch;
+}
+
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+
+/* ==========================================================================
+   Decorative surfaces
+   ========================================================================== */
+
+.emerald-pattern {
+  background-image: radial-gradient(rgb(29 62 55 / 0.5) 0.75px, transparent 0.75px);
+  background-size: 22px 22px;
+}
+
+.emerald-grid-pattern {
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgb(29 62 55 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(29 62 55 / 0.035) 1px, transparent 1px);
+}
+
+.emerald-gradient-text {
+  background: linear-gradient(102deg, #1D3E37 0%, #2F6154 55%, #C59B27 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.glass-panel {
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+.glass-card-dark {
+  background: rgb(12 30 26 / 0.86);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+}
+
+/* Hairline divider that fades at both ends. */
+.rule-fade {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--color-line) 15%, var(--color-line) 85%, transparent);
+}
+
+/* ==========================================================================
+   Scrollbars
+   ========================================================================== */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #C7D6CF transparent;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #C7D6CF;
+  border-radius: 9999px;
+  border: 3px solid var(--color-canvas);
+}
+::-webkit-scrollbar-thumb:hover { background: #9A958A; }
+
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

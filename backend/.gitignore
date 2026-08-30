@@ -1,0 +1,19 @@
+# Environment secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local SQLite database (dev convenience only — never the source of truth)
+*.db
+*.db-journal
+
+# Virtual environments
+.venv/
+venv/
+env/

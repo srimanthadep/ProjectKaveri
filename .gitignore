@@ -1,8 +1,49 @@
-node_modules/
-build/
-dist/
-coverage/
-.DS_Store
-*.log
-.env*
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.env
 !.env.example
+!.env.production.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite3
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+coverage/
+.next/
+out/
+
+# WhatsApp Service
+whatsapp-service/auth_info_baileys/
+whatsapp-service/node_modules/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

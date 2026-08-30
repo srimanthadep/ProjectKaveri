@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Kaveri WhatsApp — Pair Device</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root { color-scheme: light; }
+  body {
+    font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+    background: #FAF8F4;
+    color: #1D3E37;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 24px;
+    text-align: center;
+  }
+  h1 { font-size: 1.25rem; margin-bottom: 4px; }
+  p.sub { color: #6F6F68; font-size: 0.875rem; margin-top: 0; margin-bottom: 24px; }
+  .card {
+    background: #fff;
+    border: 1px solid #E7E3DA;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 360px;
+  }
+  #qr-img {
+    width: 260px;
+    height: 260px;
+    border-radius: 12px;
+    border: 1px solid #E7E3DA;
+    display: none;
+  }
+  #status-text {
+    font-weight: 600;
+    margin-top: 16px;
+    font-size: 0.95rem;
+  }
+  .connected #status-text { color: #2F6154; }
+  .awaiting_qr #status-text { color: #B08A1F; }
+  .disconnected #status-text, .connecting #status-text { color: #A8332B; }
+  .spinner {
+    width: 200px; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    color: #9A958A; font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+  <h1>Kaveri Stays — WhatsApp Pairing</h1>
+  <p class="sub">Scan with WhatsApp &rarr; Linked Devices &rarr; Link a Device</p>
+
+  <div id="pair-card" class="card">
+    <div id="qr-area">
+      <img id="qr-img" alt="WhatsApp QR code" />
+      <div id="qr-spinner" class="spinner">Loading…</div>
+    </div>
+    <div id="status-text">Checking status…</div>
+  </div>
+
+<script>
+  const qrImg = document.getElementById('qr-img');
+  const qrSpinner = document.getElementById('qr-spinner');
+  const statusText = document.getElementById('status-text');
+
+  async function poll() {
+    try {
+      // Unauthenticated by design — exposes only { status, qr }, nothing
+      // guest-identifying. Real message/send access still requires the
+      // service token via /api/whatsapp/*.
+      const res = await fetch('/pair/status');
+      const data = await res.json();
+      document.body.className = data.status;
+
+      if (data.status === 'connected') {
+        statusText.textContent = '✅ Connected to WhatsApp';
+        qrImg.style.display = 'none';
+        qrSpinner.style.display = 'flex';
+        qrSpinner.textContent = 'Paired successfully';
+        return; // stop polling once connected
+      }
+
+      if (data.status === 'awaiting_qr' && data.qr) {
+        qrImg.src = data.qr;
+        qrImg.style.display = 'block';
+        qrSpinner.style.display = 'none';
+        statusText.textContent = 'Scan this QR code (refreshes automatically)';
+      } else {
+        qrImg.style.display = 'none';
+        qrSpinner.style.display = 'flex';
+        qrSpinner.textContent = data.status === 'connecting' ? 'Connecting…' : 'Waiting for QR…';
+        statusText.textContent = data.status;
+      }
+    } catch (err) {
+      statusText.textContent = 'Cannot reach whatsapp-service — is it running?';
+    } finally {
+      setTimeout(poll, 1500);
+    }
+  }
+
+  poll();
+</script>
+</body>
+</html>
