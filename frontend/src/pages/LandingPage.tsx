@@ -389,21 +389,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
               <p className="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed">
                 Kaveri Stays was born from an intimate reverence for the sacred waters of South India—from the Brahmagiri mist where the river Kaveri originates in Coorg, to the highland tea knolls of the Nilgiris, and the serene coastal lagoons of Kerala.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-1 sm:pt-2">
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                  <Coffee className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1.5 sm:mb-2" />
-                  <div className="font-serif font-bold text-xs sm:text-sm text-slate-900">Farm to Table</div>
-                  <div className="text-2xs sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Estate culinary rituals with master chefs.</div>
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-1 sm:pt-2">
+                <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200 shadow-xs text-center sm:text-left">
+                  <Coffee className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1 sm:mb-2 mx-auto sm:mx-0" />
+                  <div className="font-serif font-bold text-2xs sm:text-sm text-slate-900 leading-tight">Farm to Table</div>
+                  <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 hidden xs:block">Estate culinary rituals.</div>
                 </div>
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                  <Trees className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1.5 sm:mb-2" />
-                  <div className="font-serif font-bold text-xs sm:text-sm text-slate-900">Biodiverse Land</div>
-                  <div className="text-2xs sm:text-xs text-slate-500 mt-0.5 sm:mt-1">120+ acres of private preserved flora.</div>
+                <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200 shadow-xs text-center sm:text-left">
+                  <Trees className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1 sm:mb-2 mx-auto sm:mx-0" />
+                  <div className="font-serif font-bold text-2xs sm:text-sm text-slate-900 leading-tight">Biodiverse</div>
+                  <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 hidden xs:block">120+ acres flora.</div>
                 </div>
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                  <Waves className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1.5 sm:mb-2" />
-                  <div className="font-serif font-bold text-xs sm:text-sm text-slate-900">Solar Houseboats</div>
-                  <div className="text-2xs sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Zero-emission luxury lake cruising.</div>
+                <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-slate-200 shadow-xs text-center sm:text-left">
+                  <Waves className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1 sm:mb-2 mx-auto sm:mx-0" />
+                  <div className="font-serif font-bold text-2xs sm:text-sm text-slate-900 leading-tight">Solar Boats</div>
+                  <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 hidden xs:block">Zero-emission luxury.</div>
                 </div>
               </div>
             </div>
@@ -412,11 +412,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       </section>
 
       {/* 3. Destination Showcase Cards */}
-      <section id="destinations" className="py-12 sm:py-20 bg-white border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
-          <div className="text-center space-y-2 sm:space-y-3 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider">
-              <Compass className="w-3.5 h-3.5" />
+      <section id="destinations" className="py-10 sm:py-20 bg-white border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-12">
+          <div className="text-center space-y-1.5 sm:space-y-3 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-2xs sm:text-xs font-semibold uppercase tracking-wider">
+              <Compass className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
               <span>Three Premier Sanctuaries</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
@@ -427,7 +427,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
             {properties.map((prop) => (
               <div
                 key={prop.id}
@@ -435,25 +435,25 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
               >
                 <div>
                   {/* Image with zoom effect & high-contrast dark scrim */}
-                  <div className="relative h-56 sm:h-68 lg:h-72 overflow-hidden rounded-t-2xl">
+                  <div className="relative h-48 xs:h-56 sm:h-68 lg:h-72 overflow-hidden rounded-t-2xl">
                     <img
                       src={prop.heroImage}
                       alt={prop.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
-                    <div className="absolute top-3.5 sm:top-4 left-3.5 sm:left-4 z-10">
-                      <span className="inline-flex items-center rounded-md bg-white/95 px-2.5 py-1 text-2xs font-semibold uppercase tracking-wider text-[#183028] shadow-xs">
+                    <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
+                      <span className="inline-flex items-center rounded-md bg-white/95 px-2 sm:px-2.5 py-0.5 sm:py-1 text-2xs font-semibold uppercase tracking-wider text-[#183028] shadow-xs">
                         {prop.state}
                       </span>
                     </div>
-                    <div className="absolute top-3.5 sm:top-4 right-3.5 sm:right-4 z-10 bg-black/60 px-2.5 py-1 rounded-full text-white text-2xs font-medium flex items-center gap-1 border border-white/20 shadow-xs">
+                    <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10 bg-black/60 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-white text-2xs font-medium flex items-center gap-1 border border-white/20 shadow-xs">
                       <Star className="h-3 w-3 text-[#E6DCBF] fill-[#E6DCBF]" />
                       <span>{prop.rating}</span>
                       <span className="text-white/70 text-[10px]">({prop.reviewCount})</span>
                     </div>
-                    <div className="absolute bottom-3.5 sm:bottom-4 left-4 sm:left-5 right-4 sm:right-5 text-white z-10">
-                      <h3 className="font-serif text-xl sm:text-2xl font-medium tracking-tight text-white drop-shadow-sm" style={{ color: '#ffffff' }}>
+                    <div className="absolute bottom-3 sm:bottom-4 left-3.5 sm:left-5 right-3.5 sm:right-5 text-white z-10">
+                      <h3 className="font-serif text-lg sm:text-2xl font-medium tracking-tight text-white drop-shadow-sm" style={{ color: '#ffffff' }}>
                         {prop.name}
                       </h3>
                       <p className="text-2xs sm:text-xs text-white/90 font-normal tracking-wide mt-0.5 line-clamp-1" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
@@ -463,29 +463,29 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                   </div>
 
                   {/* Content */}
-                  <div className="p-4 sm:p-5 lg:p-6 space-y-3.5 sm:space-y-4">
-                    <p className="text-xs text-[#615D56] line-clamp-3 leading-relaxed">
+                  <div className="p-3.5 sm:p-5 lg:p-6 space-y-3 sm:space-y-4">
+                    <p className="text-xs text-[#615D56] line-clamp-2 sm:line-clamp-3 leading-relaxed">
                       {prop.description}
                     </p>
 
                     {/* Amenities pills */}
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1 sm:gap-1.5">
                       {prop.amenities.slice(0, 3).map((amenity, idx) => (
                         <span
                           key={idx}
-                          className="px-2.5 py-1 rounded-md bg-[#FAF8F5] border border-[#EAE6DF] text-2xs font-medium text-[#4A463F]"
+                          className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md bg-[#FAF8F5] border border-[#EAE6DF] text-[10px] sm:text-2xs font-medium text-[#4A463F]"
                         >
                           {amenity}
                         </span>
                       ))}
                       {prop.amenities.length > 3 && (
-                        <span className="px-2 py-1 rounded-md bg-[#FAF8F5] border border-[#EAE6DF] text-2xs font-medium text-[#8C877D]">
+                        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md bg-[#FAF8F5] border border-[#EAE6DF] text-[10px] sm:text-2xs font-medium text-[#8C877D]">
                           +{prop.amenities.length - 3} more
                         </span>
                       )}
                     </div>
 
-                    <div className="pt-2.5 sm:pt-3 border-t border-[#EAE6DF] text-xs text-[#615D56] leading-relaxed">
+                    <div className="pt-2 sm:pt-3 border-t border-[#EAE6DF] text-2xs sm:text-xs text-[#615D56] leading-relaxed">
                       <span className="font-semibold text-[#183028]">Signature Ritual:</span>{' '}
                       <span className="text-[#4A463F]">{prop.signatureExperience}</span>
                     </div>
@@ -493,13 +493,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                 </div>
 
                 {/* Footer Price & CTAs */}
-                <div className="p-4 sm:p-5 lg:p-6 pt-0 flex flex-row items-center justify-between border-t border-[#EAE6DF] mt-1 sm:mt-2">
+                <div className="p-3.5 sm:p-5 lg:p-6 pt-0 flex flex-row items-center justify-between border-t border-[#EAE6DF] mt-1 sm:mt-2">
                   <div>
-                    <span className="text-2xs text-[#8C877D] uppercase tracking-widest block font-semibold">Starting from</span>
-                    <span className="font-serif text-xl sm:text-2xl font-medium text-[#183028] tracking-tight">
+                    <span className="text-[10px] sm:text-2xs text-[#8C877D] uppercase tracking-widest block font-semibold">Starting from</span>
+                    <span className="font-serif text-lg sm:text-2xl font-medium text-[#183028] tracking-tight">
                       {formatINR(prop.startingRate)}
                     </span>
-                    <span className="text-2xs text-[#8C877D]"> / night</span>
+                    <span className="text-[10px] sm:text-2xs text-[#8C877D]"> / night</span>
                   </div>
 
                   <div className="flex items-center gap-1.5 sm:gap-2">
@@ -507,7 +507,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                       variant="outline"
                       size="sm"
                       onClick={() => setActivePropertyModal(prop)}
-                      className="text-xs px-2.5 sm:px-3"
+                      className="text-2xs sm:text-xs px-2.5 sm:px-3 h-8 sm:h-9"
                     >
                       Details
                     </Button>
@@ -518,7 +518,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                         setSelectedPropertyId(prop.id);
                         onNavigate('booking-engine', { propertyId: prop.id });
                       }}
-                      className="text-xs px-3 sm:px-4"
+                      className="text-2xs sm:text-xs px-3 sm:px-4 h-8 sm:h-9"
                     >
                       Book Stay
                     </Button>
@@ -530,12 +530,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
         </div>
       </section>
 
-      {/* 4. Room Types Carousel / Showcase */}
-      <section className="py-12 sm:py-20 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
-          <div className="text-center space-y-2 sm:space-y-3 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-semibold uppercase tracking-wider">
-              <BedDouble className="w-3.5 h-3.5" />
+      {/* 4. Room Types - 2-in-a-row Mobile Grid / 3-in-a-row Desktop */}
+      <section className="py-10 sm:py-20 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-12">
+          <div className="text-center space-y-1.5 sm:space-y-3 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-2xs sm:text-xs font-semibold uppercase tracking-wider">
+              <BedDouble className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
               <span>Architectural Living</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
@@ -546,36 +546,37 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          {/* 2-in-a-row Grid on Mobile, 3-in-a-row on Desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
             {ROOM_TYPES_DATA.map((room) => (
               <Card
                 key={room.id}
-                className="overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white shadow-xs hover:shadow-xl transition-all flex flex-col justify-between"
+                className="overflow-hidden rounded-xl sm:rounded-3xl border border-slate-200 bg-white shadow-xs hover:shadow-xl transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="relative h-48 sm:h-56">
+                  <div className="relative h-28 xs:h-36 sm:h-56 overflow-hidden">
                     <img src={room.image} alt={room.name} className="w-full h-full object-cover" />
-                    <div className="absolute top-3 left-3">
-                      <Badge variant="emerald">{room.features[0]}</Badge>
+                    <div className="absolute top-2 left-2 sm:top-3 sm:left-3">
+                      <Badge variant="emerald" className="text-[9px] sm:text-xs px-1.5 sm:px-2 py-0.5">{room.features[0]}</Badge>
                     </div>
-                    <div className="absolute bottom-3 right-3 bg-black/75 px-3 py-1 rounded-xl text-white text-xs font-serif font-bold border border-white/10">
-                      {formatINR(room.basePrice)} <span className="text-[10px] font-sans font-normal">/ night</span>
+                    <div className="absolute bottom-1.5 right-1.5 sm:bottom-3 sm:right-3 bg-black/80 px-1.5 sm:px-3 py-0.5 sm:py-1 rounded-md sm:rounded-xl text-white text-[10px] sm:text-xs font-serif font-bold border border-white/10">
+                      {formatINR(room.basePrice)} <span className="text-[8px] sm:text-[10px] font-sans font-normal">/ nt</span>
                     </div>
                   </div>
 
-                  <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+                  <div className="p-2.5 xs:p-3.5 sm:p-6 space-y-1.5 sm:space-y-4">
                     <div>
-                      <h3 className="text-lg sm:text-xl font-serif font-bold text-slate-900">{room.name}</h3>
-                      <div className="flex items-center gap-3 sm:gap-4 text-xs text-slate-500 mt-1">
-                        <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5 text-emerald-600" /> {room.features[1]}</span>
-                        <span className="flex items-center gap-1"><BedDouble className="w-3.5 h-3.5 text-emerald-600" /> {room.bedConfig.split('(')[0]}</span>
+                      <h3 className="text-xs xs:text-sm sm:text-xl font-serif font-bold text-slate-900 line-clamp-1">{room.name}</h3>
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-4 text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">
+                        <span className="flex items-center gap-1"><Users className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 text-emerald-600" /> {room.features[1]}</span>
+                        <span className="hidden xs:inline-flex items-center gap-1"><BedDouble className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 text-emerald-600" /> {room.bedConfig.split('(')[0]}</span>
                       </div>
                     </div>
 
-                    <p className="text-xs text-slate-600 leading-relaxed">{room.description}</p>
+                    <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed line-clamp-2 hidden sm:block">{room.description}</p>
 
-                    {/* Inclusions */}
-                    <div className="space-y-1.5 pt-2 border-t border-slate-100">
+                    {/* Inclusions (Desktop View) */}
+                    <div className="space-y-1 sm:space-y-1.5 pt-1.5 sm:pt-2 border-t border-slate-100 hidden sm:block">
                       <div className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Included with Stay:</div>
                       <ul className="space-y-1 text-xs text-slate-600">
                         {room.inclusions.slice(0, 3).map((inc, i) => (
@@ -589,16 +590,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                   </div>
                 </div>
 
-                <div className="p-4 sm:p-6 pt-0">
+                <div className="p-2.5 xs:p-3.5 sm:p-6 pt-0">
                   <Button
                     variant="primary"
-                    size="md"
+                    size="sm"
                     onClick={() => {
                       onNavigate('booking-engine', { roomCategory: room.id });
                     }}
-                    className="w-full text-xs font-semibold uppercase tracking-wider"
+                    className="w-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider h-7 xs:h-8 sm:h-10"
                   >
-                    Select {room.name.split(' ')[0]}
+                    Select
                   </Button>
                 </div>
               </Card>
@@ -608,11 +609,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       </section>
 
       {/* 5. Verified Guest Reviews / Social Proof */}
-      <section className="py-12 sm:py-20 bg-white border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
-          <div className="text-center space-y-2 sm:space-y-3 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider">
-              <Star className="w-3.5 h-3.5 fill-emerald-600 text-emerald-600" />
+      <section className="py-10 sm:py-20 bg-white border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-12">
+          <div className="text-center space-y-1.5 sm:space-y-3 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-2xs sm:text-xs font-semibold uppercase tracking-wider">
+              <Star className="w-3 sm:w-3.5 h-3 sm:h-3.5 fill-emerald-600 text-emerald-600" />
               <span>Verified Patron Experiences</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
@@ -623,36 +624,36 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
             {TESTIMONIALS_DATA.map((t) => (
               <Card
                 key={t.id}
-                className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 bg-slate-50 space-y-4 relative flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
+                className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 bg-slate-50 space-y-3 sm:space-y-4 relative flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
               >
-                <div className="space-y-2.5 sm:space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   <div className="flex items-center gap-1 text-amber-400">
                     {[...Array(t.rating)].map((_, i) => (
                       <Star key={i} className="w-3.5 sm:w-4 h-3.5 sm:h-4 fill-amber-400" />
                     ))}
                   </div>
-                  <h4 className="font-serif font-bold text-sm sm:text-base text-slate-900">
+                  <h4 className="font-serif font-bold text-xs sm:text-base text-slate-900">
                     "{t.title}"
                   </h4>
-                  <p className="text-xs text-slate-600 leading-relaxed italic">
+                  <p className="text-2xs sm:text-xs text-slate-600 leading-relaxed italic line-clamp-3 sm:line-clamp-none">
                     "{t.comment}"
                   </p>
                 </div>
 
-                <div className="pt-3.5 sm:pt-4 border-t border-slate-200 flex items-center gap-3">
+                <div className="pt-2.5 sm:pt-4 border-t border-slate-200 flex items-center gap-2.5 sm:gap-3">
                   <img
                     src={t.avatar}
                     alt={t.guestName}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-emerald-400/40"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border border-emerald-400/40"
                   />
                   <div>
-                    <div className="font-bold text-xs text-slate-900">{t.guestName}</div>
-                    <div className="text-[10px] text-slate-500">{t.guestLocation}</div>
-                    <div className="text-[10px] text-emerald-700 font-semibold">{t.propertyName}</div>
+                    <div className="font-bold text-2xs sm:text-xs text-slate-900">{t.guestName}</div>
+                    <div className="text-[9px] sm:text-[10px] text-slate-500">{t.guestLocation}</div>
+                    <div className="text-[9px] sm:text-[10px] text-emerald-700 font-semibold">{t.propertyName}</div>
                   </div>
                 </div>
               </Card>
