@@ -73,31 +73,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
         className="w-full h-full object-cover brightness-[0.85] group-hover:scale-105 transition-transform duration-700 pointer-events-none"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/15 pointer-events-none" />
-      <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
-        <span className="inline-flex items-center rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#183028] shadow-sm">
+      <div className="absolute top-3.5 sm:top-5 left-3.5 sm:left-5 right-3.5 sm:right-5 flex items-center justify-between z-10">
+        <span className="inline-flex items-center rounded-lg bg-white/95 px-2.5 sm:px-3 py-1 sm:py-1.5 text-2xs sm:text-xs font-semibold uppercase tracking-wider text-[#183028] shadow-sm">
           Karnataka · Coorg
         </span>
-        <span className="bg-black/60 px-3 py-1.5 rounded-full text-white text-xs font-medium flex items-center gap-1.5 border border-white/20 shadow-sm">
-          <Star className="h-3.5 w-3.5 text-[#E6DCBF] fill-[#E6DCBF]" />
+        <span className="bg-black/60 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-white text-2xs sm:text-xs font-medium flex items-center gap-1 sm:gap-1.5 border border-white/20 shadow-sm">
+          <Star className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-[#E6DCBF] fill-[#E6DCBF]" />
           <span className="font-semibold">4.95</span>
-          <span className="text-white/70 text-[11px]">(328 reviews)</span>
+          <span className="text-white/70 text-[10px] sm:text-[11px]">(328 reviews)</span>
         </span>
       </div>
-      <div className="absolute bottom-6 left-6 right-6 text-white z-10 space-y-2">
-        <span className="text-xs uppercase tracking-widest text-[#E6DCBF] font-semibold block">
+      <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 text-white z-10 space-y-1.5 sm:space-y-2">
+        <span className="text-2xs sm:text-xs uppercase tracking-widest text-[#E6DCBF] font-semibold block">
           120-Acre Private Coffee Plantation
         </span>
-        <h3 className="font-serif text-2xl sm:text-3xl lg:text-[2rem] font-medium text-white tracking-tight leading-tight drop-shadow-sm">
+        <h3 className="font-serif text-xl sm:text-3xl lg:text-[2rem] font-medium text-white tracking-tight leading-tight drop-shadow-sm">
           Kaveri Riverside
         </h3>
-        <p className="text-xs sm:text-sm text-white/85 line-clamp-2 leading-relaxed">
+        <p className="text-2xs sm:text-sm text-white/85 line-clamp-2 leading-relaxed">
           Riverside cottages nestled along the sacred river bends with private plunge pools, woodfire culinary rituals, and aromatic arabica trails.
         </p>
-        <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+        <div className="pt-2.5 sm:pt-3 border-t border-white/15 flex items-center justify-between">
           <div>
-            <span className="text-2xs text-white/70 uppercase tracking-widest block font-medium">Starting from</span>
-            <span className="font-serif text-xl sm:text-2xl font-medium text-white">₹14,500</span>
-            <span className="text-2xs text-white/70"> / night</span>
+            <span className="text-[10px] sm:text-2xs text-white/70 uppercase tracking-widest block font-medium">Starting from</span>
+            <span className="font-serif text-lg sm:text-2xl font-medium text-white">₹14,500</span>
+            <span className="text-[10px] sm:text-2xs text-white/70"> / night</span>
           </div>
           <button
             type="button"
@@ -106,7 +106,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
               setSelectedPropertyId('coorg');
               onNavigate('booking-engine', { propertyId: 'coorg' });
             }}
-            className="px-4.5 py-2 rounded-xl bg-white text-[#183028] text-xs sm:text-sm font-semibold hover:bg-[#FAF8F5] transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
+            className="px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-xl bg-white text-[#183028] text-2xs sm:text-sm font-semibold hover:bg-[#FAF8F5] transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
           >
             Reserve Stay
           </button>
@@ -125,31 +125,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
         className="w-full h-full object-cover brightness-[0.85] group-hover:scale-105 transition-transform duration-700 pointer-events-none"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/15 pointer-events-none" />
-      <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
-        <span className="inline-flex items-center rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#183028] shadow-sm">
+      <div className="absolute top-3.5 sm:top-5 left-3.5 sm:left-5 right-3.5 sm:right-5 flex items-center justify-between z-10">
+        <span className="inline-flex items-center rounded-lg bg-white/95 px-2.5 sm:px-3 py-1 sm:py-1.5 text-2xs sm:text-xs font-semibold uppercase tracking-wider text-[#183028] shadow-sm">
           Tamil Nadu · Ooty
         </span>
-        <span className="bg-black/60 px-3 py-1.5 rounded-full text-white text-xs font-medium flex items-center gap-1.5 border border-white/20 shadow-sm">
-          <Star className="h-3.5 w-3.5 text-[#E6DCBF] fill-[#E6DCBF]" />
+        <span className="bg-black/60 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-white text-2xs sm:text-xs font-medium flex items-center gap-1 sm:gap-1.5 border border-white/20 shadow-sm">
+          <Star className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-[#E6DCBF] fill-[#E6DCBF]" />
           <span className="font-semibold">4.92</span>
-          <span className="text-white/70 text-[11px]">(264 reviews)</span>
+          <span className="text-white/70 text-[10px] sm:text-[11px]">(264 reviews)</span>
         </span>
       </div>
-      <div className="absolute bottom-6 left-6 right-6 text-white z-10 space-y-2">
-        <span className="text-xs uppercase tracking-widest text-[#E6DCBF] font-semibold block">
+      <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 text-white z-10 space-y-1.5 sm:space-y-2">
+        <span className="text-2xs sm:text-xs uppercase tracking-widest text-[#E6DCBF] font-semibold block">
           7,200 Ft Highland Heritage Manor
         </span>
-        <h3 className="font-serif text-2xl sm:text-3xl lg:text-[2rem] font-medium text-white tracking-tight leading-tight drop-shadow-sm">
+        <h3 className="font-serif text-xl sm:text-3xl lg:text-[2rem] font-medium text-white tracking-tight leading-tight drop-shadow-sm">
           Kaveri Hilltop
         </h3>
-        <p className="text-xs sm:text-sm text-white/85 line-clamp-2 leading-relaxed">
+        <p className="text-2xs sm:text-sm text-white/85 line-clamp-2 leading-relaxed">
           Restored Victorian stone masonry, private English tea lawns, heated hydrotherapy pool, and panoramic misty Nilgiri mountain vistas.
         </p>
-        <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+        <div className="pt-2.5 sm:pt-3 border-t border-white/15 flex items-center justify-between">
           <div>
-            <span className="text-2xs text-white/70 uppercase tracking-widest block font-medium">Starting from</span>
-            <span className="font-serif text-xl sm:text-2xl font-medium text-white">₹18,000</span>
-            <span className="text-2xs text-white/70"> / night</span>
+            <span className="text-[10px] sm:text-2xs text-white/70 uppercase tracking-widest block font-medium">Starting from</span>
+            <span className="font-serif text-lg sm:text-2xl font-medium text-white">₹18,000</span>
+            <span className="text-[10px] sm:text-2xs text-white/70"> / night</span>
           </div>
           <button
             type="button"
@@ -158,7 +158,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
               setSelectedPropertyId('ooty');
               onNavigate('booking-engine', { propertyId: 'ooty' });
             }}
-            className="px-4.5 py-2 rounded-xl bg-white text-[#183028] text-xs sm:text-sm font-semibold hover:bg-[#FAF8F5] transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
+            className="px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-xl bg-white text-[#183028] text-2xs sm:text-sm font-semibold hover:bg-[#FAF8F5] transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
           >
             Reserve Stay
           </button>
@@ -177,31 +177,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
         className="w-full h-full object-cover brightness-[0.85] group-hover:scale-105 transition-transform duration-700 pointer-events-none"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/15 pointer-events-none" />
-      <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
-        <span className="inline-flex items-center rounded-lg bg-white/95 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#183028] shadow-sm">
+      <div className="absolute top-3.5 sm:top-5 left-3.5 sm:left-5 right-3.5 sm:right-5 flex items-center justify-between z-10">
+        <span className="inline-flex items-center rounded-lg bg-white/95 px-2.5 sm:px-3 py-1 sm:py-1.5 text-2xs sm:text-xs font-semibold uppercase tracking-wider text-[#183028] shadow-sm">
           Kerala · Alleppey
         </span>
-        <span className="bg-black/60 px-3 py-1.5 rounded-full text-white text-xs font-medium flex items-center gap-1.5 border border-white/20 shadow-sm">
-          <Star className="h-3.5 w-3.5 text-[#E6DCBF] fill-[#E6DCBF]" />
+        <span className="bg-black/60 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-white text-2xs sm:text-xs font-medium flex items-center gap-1 sm:gap-1.5 border border-white/20 shadow-sm">
+          <Star className="h-3 sm:h-3.5 w-3 sm:w-3.5 text-[#E6DCBF] fill-[#E6DCBF]" />
           <span className="font-semibold">4.98</span>
-          <span className="text-white/70 text-[11px]">(412 reviews)</span>
+          <span className="text-white/70 text-[10px] sm:text-[11px]">(412 reviews)</span>
         </span>
       </div>
-      <div className="absolute bottom-6 left-6 right-6 text-white z-10 space-y-2">
-        <span className="text-xs uppercase tracking-widest text-[#E6DCBF] font-semibold block">
+      <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 text-white z-10 space-y-1.5 sm:space-y-2">
+        <span className="text-2xs sm:text-xs uppercase tracking-widest text-[#E6DCBF] font-semibold block">
           Private Luxury Lagoon Houseboats
         </span>
-        <h3 className="font-serif text-2xl sm:text-3xl lg:text-[2rem] font-medium text-white tracking-tight leading-tight drop-shadow-sm">
+        <h3 className="font-serif text-xl sm:text-3xl lg:text-[2rem] font-medium text-white tracking-tight leading-tight drop-shadow-sm">
           Kaveri Backwater
         </h3>
-        <p className="text-xs sm:text-sm text-white/85 line-clamp-2 leading-relaxed">
+        <p className="text-2xs sm:text-sm text-white/85 line-clamp-2 leading-relaxed">
           Handcrafted teakwood lagoon villas and private solar-powered luxury kettuvallam houseboats floating on tranquil Vembanad waters.
         </p>
-        <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+        <div className="pt-2.5 sm:pt-3 border-t border-white/15 flex items-center justify-between">
           <div>
-            <span className="text-2xs text-white/70 uppercase tracking-widest block font-medium">Starting from</span>
-            <span className="font-serif text-xl sm:text-2xl font-medium text-white">₹22,000</span>
-            <span className="text-2xs text-white/70"> / night</span>
+            <span className="text-[10px] sm:text-2xs text-white/70 uppercase tracking-widest block font-medium">Starting from</span>
+            <span className="font-serif text-lg sm:text-2xl font-medium text-white">₹22,000</span>
+            <span className="text-[10px] sm:text-2xs text-white/70"> / night</span>
           </div>
           <button
             type="button"
@@ -210,7 +210,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
               setSelectedPropertyId('alleppey');
               onNavigate('booking-engine', { propertyId: 'alleppey' });
             }}
-            className="px-4.5 py-2 rounded-xl bg-white text-[#183028] text-xs sm:text-sm font-semibold hover:bg-[#FAF8F5] transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
+            className="px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-xl bg-white text-[#183028] text-2xs sm:text-sm font-semibold hover:bg-[#FAF8F5] transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
           >
             Reserve Stay
           </button>
@@ -222,18 +222,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
   return (
     <div className="w-full">
       {/* 1. Modern Luxury Hero Section */}
-      <section className="pt-24 pb-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="pt-20 sm:pt-24 pb-10 sm:pb-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Column: Narrative & Luxury Concierge Form */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-6 lg:pr-4">
+          {/* Left Column: Narrative & Luxury Concierge Form (Order 2 on Mobile, Order 1 on Desktop) */}
+          <div className="lg:col-span-5 order-2 lg:order-1 flex flex-col justify-center space-y-5 sm:space-y-6 lg:pr-4">
             <div>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.25rem] font-medium text-[#183028] leading-[1.14] tracking-tight">
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-[3.25rem] font-medium text-[#183028] leading-[1.16] sm:leading-[1.14] tracking-tight">
                 Authentic Luxury in South India's <span className="font-serif italic font-normal text-[#9E7B36]">Finest Retreats</span>
               </h1>
             </div>
 
             {/* Luxury Reservation Concierge Card */}
-            <div className="bg-white/95 backdrop-blur-md p-5 sm:p-6 shadow-sm border border-[#E4DFD5] rounded-2xl relative z-10 space-y-4">
+            <div className="bg-white/95 backdrop-blur-md p-4 sm:p-6 shadow-sm border border-[#E4DFD5] rounded-2xl relative z-10 space-y-3.5 sm:space-y-4">
               <div className="flex items-center justify-between border-b border-[#EAE6DF] pb-2.5">
                 <div className="flex items-center gap-1.5 text-2xs uppercase tracking-widest font-semibold text-[#8C877D]">
                   <Compass className="h-3.5 w-3.5 text-[#9E7B36]" />
@@ -244,8 +244,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                 </span>
               </div>
 
-              <form onSubmit={handleSearchAvailability} className="space-y-3.5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <form onSubmit={handleSearchAvailability} className="space-y-3 sm:space-y-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                   <div className="relative">
                     <label className="text-2xs uppercase tracking-wider font-semibold text-[#8C877D] block mb-1">
                       Destination
@@ -284,7 +284,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
                   <div>
                     <label className="text-2xs uppercase tracking-wider font-semibold text-[#8C877D] block mb-1">
                       Check-In
@@ -293,7 +293,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                       type="date"
                       value={checkIn}
                       onChange={(e) => setCheckIn(e.target.value)}
-                      className="w-full rounded-lg border border-[#D9D3C7] bg-[#FAF8F5]/60 hover:bg-white px-3 py-2 text-xs font-medium text-[#183028] focus:outline-none focus:border-[#183028] focus:bg-white cursor-pointer transition-colors"
+                      className="w-full rounded-lg border border-[#D9D3C7] bg-[#FAF8F5]/60 hover:bg-white px-2.5 sm:px-3 py-2 text-xs font-medium text-[#183028] focus:outline-none focus:border-[#183028] focus:bg-white cursor-pointer transition-colors"
                     />
                   </div>
                   <div>
@@ -304,7 +304,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                       type="date"
                       value={checkOut}
                       onChange={(e) => setCheckOut(e.target.value)}
-                      className="w-full rounded-lg border border-[#D9D3C7] bg-[#FAF8F5]/60 hover:bg-white px-3 py-2 text-xs font-medium text-[#183028] focus:outline-none focus:border-[#183028] focus:bg-white cursor-pointer transition-colors"
+                      className="w-full rounded-lg border border-[#D9D3C7] bg-[#FAF8F5]/60 hover:bg-white px-2.5 sm:px-3 py-2 text-xs font-medium text-[#183028] focus:outline-none focus:border-[#183028] focus:bg-white cursor-pointer transition-colors"
                     />
                   </div>
                 </div>
@@ -313,14 +313,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                   type="submit"
                   variant="primary"
                   size="md"
-                  className="w-full text-xs font-medium h-11 shadow-sm mt-1"
+                  className="w-full text-xs font-medium h-10.5 sm:h-11 shadow-sm mt-1"
                 >
                   <Search className="h-3.5 w-3.5 mr-1.5 text-[#E6DCBF]" />
                   <span>Check Sanctuary Availability</span>
                 </Button>
               </form>
 
-              <div className="flex items-center justify-center gap-3 pt-1 text-[11px] text-[#8C877D]">
+              <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 pt-0.5 sm:pt-1 text-[10px] sm:text-[11px] text-[#8C877D]">
                 <span>✓ Flexible Rescheduling</span>
                 <span>·</span>
                 <span>✓ Estate Welcome Ritual</span>
@@ -328,9 +328,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </div>
           </div>
 
-          {/* Right Column: Interactive Luxury Card Stack */}
-          <div className="lg:col-span-7 flex flex-col justify-center items-center lg:items-end">
-            <div className="w-full max-w-lg sm:max-w-xl lg:max-w-[640px] h-[480px] sm:h-[530px] lg:h-[550px] relative">
+          {/* Right Column: Interactive Luxury Card Stack (Order 1 on Mobile, Order 2 on Desktop) */}
+          <div className="lg:col-span-7 order-1 lg:order-2 flex flex-col justify-center items-center lg:items-end w-full">
+            <div className="w-full max-w-lg sm:max-w-xl lg:max-w-[640px] h-[390px] xs:h-[430px] sm:h-[500px] lg:h-[550px] relative">
               <Stack
                 randomRotation={false}
                 sensitivity={180}
@@ -343,17 +343,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </div>
 
             {/* Subtitle Interaction Cue */}
-            <div className="flex items-center justify-between w-full max-w-lg sm:max-w-xl lg:max-w-[640px] mt-3 px-1 text-2xs text-[#8C877D]">
-              <span className="flex items-center gap-1.5">
+            <div className="flex items-center justify-between w-full max-w-lg sm:max-w-xl lg:max-w-[640px] mt-2.5 sm:mt-3 px-1 text-2xs text-[#8C877D]">
+              <span className="flex items-center gap-1.5 text-[11px] sm:text-2xs">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#2C6B4D] animate-pulse" />
-                Drag or click cards to browse sanctuaries
+                Tap or swipe cards to explore
               </span>
               <button
                 type="button"
                 onClick={() => onNavigate('booking-engine')}
-                className="font-medium text-[#183028] hover:text-[#9E7B36] transition-colors cursor-pointer"
+                className="font-medium text-[#183028] hover:text-[#9E7B36] transition-colors cursor-pointer text-[11px] sm:text-2xs"
               >
-                View all 3 destinations →
+                View all 3 sanctuaries →
               </button>
             </div>
           </div>
@@ -361,20 +361,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       </section>
 
       {/* 2. Brand Story & Philosophy Section */}
-      <section className="py-20 bg-slate-50 text-slate-900 border-t border-slate-200">
+      <section className="py-12 sm:py-20 bg-slate-50 text-slate-900 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Image Composition */}
             <div className="relative">
-              <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200">
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-slate-200">
                 <img
                   src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=80"
                   alt="Kaveri Stays Philosophy"
-                  className="w-full h-[460px] object-cover hover:scale-105 transition-transform duration-700"
+                  className="w-full h-[280px] xs:h-[340px] sm:h-[400px] lg:h-[460px] object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 p-6 rounded-2xl bg-emerald-900 text-white max-w-xs shadow-2xl hidden sm:block border border-emerald-600/40">
-                <div className="text-2xl font-serif font-bold text-emerald-300">100% Organic</div>
+              <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 p-4 sm:p-6 rounded-2xl bg-emerald-900 text-white max-w-xs shadow-2xl hidden sm:block border border-emerald-600/40">
+                <div className="text-xl sm:text-2xl font-serif font-bold text-emerald-300">100% Organic</div>
                 <div className="text-xs text-emerald-100/90 mt-1 leading-relaxed">
                   Estate-harvested coffees, fresh cardamom, farm-to-table cuisine, and zero single-use plastics.
                 </div>
@@ -382,28 +382,28 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </div>
 
             {/* Narrative */}
-            <div className="space-y-6">
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 leading-tight">
+            <div className="space-y-4 sm:space-y-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900 leading-tight">
                 Rooted in South India's Soul, Crafted for the Discerning Traveller.
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              <p className="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed">
                 Kaveri Stays was born from an intimate reverence for the sacred waters of South India—from the Brahmagiri mist where the river Kaveri originates in Coorg, to the highland tea knolls of the Nilgiris, and the serene coastal lagoons of Kerala.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                  <Coffee className="w-5 h-5 text-emerald-600 mb-2" />
-                  <div className="font-serif font-bold text-sm text-slate-900">Farm to Table</div>
-                  <div className="text-xs text-slate-500 mt-1">Estate culinary rituals with master chefs.</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-1 sm:pt-2">
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                  <Coffee className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1.5 sm:mb-2" />
+                  <div className="font-serif font-bold text-xs sm:text-sm text-slate-900">Farm to Table</div>
+                  <div className="text-2xs sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Estate culinary rituals with master chefs.</div>
                 </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                  <Trees className="w-5 h-5 text-emerald-600 mb-2" />
-                  <div className="font-serif font-bold text-sm text-slate-900">Biodiverse Land</div>
-                  <div className="text-xs text-slate-500 mt-1">120+ acres of private preserved flora.</div>
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                  <Trees className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1.5 sm:mb-2" />
+                  <div className="font-serif font-bold text-xs sm:text-sm text-slate-900">Biodiverse Land</div>
+                  <div className="text-2xs sm:text-xs text-slate-500 mt-0.5 sm:mt-1">120+ acres of private preserved flora.</div>
                 </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                  <Waves className="w-5 h-5 text-emerald-600 mb-2" />
-                  <div className="font-serif font-bold text-sm text-slate-900">Solar Houseboats</div>
-                  <div className="text-xs text-slate-500 mt-1">Zero-emission luxury lake cruising.</div>
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                  <Waves className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-600 mb-1.5 sm:mb-2" />
+                  <div className="font-serif font-bold text-xs sm:text-sm text-slate-900">Solar Houseboats</div>
+                  <div className="text-2xs sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Zero-emission luxury lake cruising.</div>
                 </div>
               </div>
             </div>
@@ -412,17 +412,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       </section>
 
       {/* 3. Destination Showcase Cards */}
-      <section id="destinations" className="py-20 bg-white border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center space-y-3 max-w-3xl mx-auto">
+      <section id="destinations" className="py-12 sm:py-20 bg-white border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+          <div className="text-center space-y-2 sm:space-y-3 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider">
               <Compass className="w-3.5 h-3.5" />
               <span>Three Premier Sanctuaries</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
               Explore Our Signature Destinations
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600">
+            <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
               Each destination captures the architectural integrity, authentic gastronomy, and untouched natural grandeur of its geography.
             </p>
           </div>
@@ -435,35 +435,35 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
               >
                 <div>
                   {/* Image with zoom effect & high-contrast dark scrim */}
-                  <div className="relative h-68 sm:h-72 overflow-hidden rounded-t-2xl">
+                  <div className="relative h-56 sm:h-68 lg:h-72 overflow-hidden rounded-t-2xl">
                     <img
                       src={prop.heroImage}
                       alt={prop.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="inline-flex items-center rounded-md bg-white/90 backdrop-blur-md px-2.5 py-1 text-2xs font-semibold uppercase tracking-wider text-[#183028] shadow-xs">
+                    <div className="absolute top-3.5 sm:top-4 left-3.5 sm:left-4 z-10">
+                      <span className="inline-flex items-center rounded-md bg-white/95 px-2.5 py-1 text-2xs font-semibold uppercase tracking-wider text-[#183028] shadow-xs">
                         {prop.state}
                       </span>
                     </div>
-                    <div className="absolute top-4 right-4 z-10 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full text-white text-2xs font-medium flex items-center gap-1 border border-white/20 shadow-xs">
+                    <div className="absolute top-3.5 sm:top-4 right-3.5 sm:right-4 z-10 bg-black/60 px-2.5 py-1 rounded-full text-white text-2xs font-medium flex items-center gap-1 border border-white/20 shadow-xs">
                       <Star className="h-3 w-3 text-[#E6DCBF] fill-[#E6DCBF]" />
                       <span>{prop.rating}</span>
                       <span className="text-white/70 text-[10px]">({prop.reviewCount})</span>
                     </div>
-                    <div className="absolute bottom-4 left-5 right-5 text-white z-10">
-                      <h3 className="font-serif text-2xl font-medium tracking-tight text-white drop-shadow-sm" style={{ color: '#ffffff' }}>
+                    <div className="absolute bottom-3.5 sm:bottom-4 left-4 sm:left-5 right-4 sm:right-5 text-white z-10">
+                      <h3 className="font-serif text-xl sm:text-2xl font-medium tracking-tight text-white drop-shadow-sm" style={{ color: '#ffffff' }}>
                         {prop.name}
                       </h3>
-                      <p className="text-xs text-white/90 font-normal tracking-wide mt-0.5 line-clamp-1" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+                      <p className="text-2xs sm:text-xs text-white/90 font-normal tracking-wide mt-0.5 line-clamp-1" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
                         {prop.tagline}
                       </p>
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className="p-5 sm:p-6 space-y-4">
+                  <div className="p-4 sm:p-5 lg:p-6 space-y-3.5 sm:space-y-4">
                     <p className="text-xs text-[#615D56] line-clamp-3 leading-relaxed">
                       {prop.description}
                     </p>
@@ -485,7 +485,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                       )}
                     </div>
 
-                    <div className="pt-3 border-t border-[#EAE6DF] text-xs text-[#615D56] leading-relaxed">
+                    <div className="pt-2.5 sm:pt-3 border-t border-[#EAE6DF] text-xs text-[#615D56] leading-relaxed">
                       <span className="font-semibold text-[#183028]">Signature Ritual:</span>{' '}
                       <span className="text-[#4A463F]">{prop.signatureExperience}</span>
                     </div>
@@ -493,21 +493,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                 </div>
 
                 {/* Footer Price & CTAs */}
-                <div className="p-5 sm:p-6 pt-0 flex items-center justify-between border-t border-[#EAE6DF] mt-2">
+                <div className="p-4 sm:p-5 lg:p-6 pt-0 flex flex-row items-center justify-between border-t border-[#EAE6DF] mt-1 sm:mt-2">
                   <div>
                     <span className="text-2xs text-[#8C877D] uppercase tracking-widest block font-semibold">Starting from</span>
-                    <span className="font-serif text-2xl font-medium text-[#183028] tracking-tight">
+                    <span className="font-serif text-xl sm:text-2xl font-medium text-[#183028] tracking-tight">
                       {formatINR(prop.startingRate)}
                     </span>
                     <span className="text-2xs text-[#8C877D]"> / night</span>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => setActivePropertyModal(prop)}
-                      className="text-xs"
+                      className="text-xs px-2.5 sm:px-3"
                     >
                       Details
                     </Button>
@@ -518,7 +518,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                         setSelectedPropertyId(prop.id);
                         onNavigate('booking-engine', { propertyId: prop.id });
                       }}
-                      className="text-xs"
+                      className="text-xs px-3 sm:px-4"
                     >
                       Book Stay
                     </Button>
@@ -531,14 +531,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       </section>
 
       {/* 4. Room Types Carousel / Showcase */}
-      <section className="py-20 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
+      <section className="py-12 sm:py-20 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+          <div className="text-center space-y-2 sm:space-y-3 max-w-2xl mx-auto">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-semibold uppercase tracking-wider">
               <BedDouble className="w-3.5 h-3.5" />
               <span>Architectural Living</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
               Boutique Room & Villa Categories
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
@@ -546,27 +546,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {ROOM_TYPES_DATA.map((room) => (
               <Card
                 key={room.id}
-                className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition-all flex flex-col justify-between"
+                className="overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white shadow-xs hover:shadow-xl transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="relative h-56">
+                  <div className="relative h-48 sm:h-56">
                     <img src={room.image} alt={room.name} className="w-full h-full object-cover" />
                     <div className="absolute top-3 left-3">
                       <Badge variant="emerald">{room.features[0]}</Badge>
                     </div>
-                    <div className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-md px-3 py-1 rounded-xl text-white text-xs font-serif font-bold border border-white/10">
+                    <div className="absolute bottom-3 right-3 bg-black/75 px-3 py-1 rounded-xl text-white text-xs font-serif font-bold border border-white/10">
                       {formatINR(room.basePrice)} <span className="text-[10px] font-sans font-normal">/ night</span>
                     </div>
                   </div>
 
-                  <div className="p-6 space-y-4">
+                  <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                     <div>
-                      <h3 className="text-xl font-serif font-bold text-slate-900">{room.name}</h3>
-                      <div className="flex items-center gap-4 text-xs text-slate-500 mt-1">
+                      <h3 className="text-lg sm:text-xl font-serif font-bold text-slate-900">{room.name}</h3>
+                      <div className="flex items-center gap-3 sm:gap-4 text-xs text-slate-500 mt-1">
                         <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5 text-emerald-600" /> {room.features[1]}</span>
                         <span className="flex items-center gap-1"><BedDouble className="w-3.5 h-3.5 text-emerald-600" /> {room.bedConfig.split('(')[0]}</span>
                       </div>
@@ -589,7 +589,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                   </div>
                 </div>
 
-                <div className="p-6 pt-0">
+                <div className="p-4 sm:p-6 pt-0">
                   <Button
                     variant="primary"
                     size="md"
@@ -608,14 +608,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       </section>
 
       {/* 5. Verified Guest Reviews / Social Proof */}
-      <section className="py-20 bg-white border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
+      <section className="py-12 sm:py-20 bg-white border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+          <div className="text-center space-y-2 sm:space-y-3 max-w-2xl mx-auto">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider">
               <Star className="w-3.5 h-3.5 fill-emerald-600 text-emerald-600" />
               <span>Verified Patron Experiences</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
               Words from Our Honoured Guests
             </h2>
             <p className="text-xs sm:text-sm text-slate-600">
@@ -623,19 +623,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {TESTIMONIALS_DATA.map((t) => (
               <Card
                 key={t.id}
-                className="p-6 rounded-3xl border border-slate-200 bg-slate-50 space-y-4 relative flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow"
+                className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 bg-slate-50 space-y-4 relative flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
               >
-                <div className="space-y-3">
+                <div className="space-y-2.5 sm:space-y-3">
                   <div className="flex items-center gap-1 text-amber-400">
                     {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400" />
+                      <Star key={i} className="w-3.5 sm:w-4 h-3.5 sm:h-4 fill-amber-400" />
                     ))}
                   </div>
-                  <h4 className="font-serif font-bold text-base text-slate-900">
+                  <h4 className="font-serif font-bold text-sm sm:text-base text-slate-900">
                     "{t.title}"
                   </h4>
                   <p className="text-xs text-slate-600 leading-relaxed italic">
@@ -643,11 +643,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200 flex items-center gap-3">
+                <div className="pt-3.5 sm:pt-4 border-t border-slate-200 flex items-center gap-3">
                   <img
                     src={t.avatar}
                     alt={t.guestName}
-                    className="w-10 h-10 rounded-full object-cover border border-emerald-400/40"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-emerald-400/40"
                   />
                   <div>
                     <div className="font-bold text-xs text-slate-900">{t.guestName}</div>
