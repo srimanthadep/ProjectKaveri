@@ -1,6 +1,0 @@
-{
-  "name": "Kaveri Stays",
-  "description": "Enterprise-grade luxury boutique hospitality web application for Kaveri Stays across Coorg, Ooty, and Alleppey.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
