@@ -1,0 +1,86 @@
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL Database (Local Containerized DB)
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: kaveri-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kaveri_user
+      POSTGRES_PASSWORD: kaveri_secure_password_2026
+      POSTGRES_DB: kaveri
+    ports:
+      - "5432:5432"
+    volumes:
+      - kaveri_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kaveri_user -d kaveri"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kaveri-network
+
+  # ---------------------------------------------------------------------------
+  # FastAPI Backend API
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: kaveri-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://kaveri_user:kaveri_secure_password_2026@postgres:5432/kaveri
+      - SECRET_KEY=super_secret_production_key_for_kaveri_stays_api_2026_32chars
+      - ACCESS_TOKEN_EXPIRE_MINUTES=60
+      - REFRESH_TOKEN_EXPIRE_DAYS=7
+      - ALGORITHM=HS256
+      - BCRYPT_ROUNDS=12
+      - GEMINI_MODEL=gemini-2.5-flash
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,https://kaveri.srimanth.me,https://vercel.app
+      - CORS_ORIGIN_REGEX=https:\/\/.*\.srimanth\.me|https:\/\/srimanth\.me|https:\/\/.*\.vercel\.app|http:\/\/localhost:\d+|http:\/\/127\.0\.0\.1:\d+
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - kaveri-network
+
+  # ---------------------------------------------------------------------------
+  # React Frontend (Nginx SPA)
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000
+    container_name: kaveri-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - kaveri-network
+
+# -----------------------------------------------------------------------------
+# Networks & Volumes
+# -----------------------------------------------------------------------------
+networks:
+  kaveri-network:
+    driver: bridge
+
+volumes:
+  kaveri_pgdata:
+    driver: local
