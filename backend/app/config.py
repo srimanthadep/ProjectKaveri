@@ -33,16 +33,19 @@ BCRYPT_ROUNDS: int = int(os.getenv("BCRYPT_ROUNDS", "12"))
 GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
 GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
-# CORS configuration for local dev and production on Vercel
+# CORS configuration for local dev and production on Vercel / Render / Custom domains
 CORS_ORIGINS: list[str] = [
     origin.strip()
     for origin in os.getenv(
-        "CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,https://vercel.app"
+        "CORS_ORIGINS",
+        "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,https://vercel.app,https://kaveri.srimanth.me,https://srimanth.me,https://projectkaveri.onrender.com"
     ).split(",")
     if origin.strip()
 ]
 
-# Regex matching all Vercel deployment domains (*.vercel.app) and local development ports
+# Regex matching custom domains (*.srimanth.me), all Vercel deployment domains (*.vercel.app), Render (*.onrender.com), and local development ports
 CORS_ORIGIN_REGEX: str = os.getenv(
-    "CORS_ORIGIN_REGEX", r"https:\/\/.*\.vercel\.app|http:\/\/localhost:\d+|http:\/\/127\.0\.0\.1:\d+"
+    "CORS_ORIGIN_REGEX",
+    r"https:\/\/.*\.srimanth\.me|https:\/\/srimanth\.me|https:\/\/.*\.vercel\.app|https:\/\/.*\.onrender\.com|http:\/\/localhost:\d+|http:\/\/127\.0\.0\.1:\d+"
 )
+

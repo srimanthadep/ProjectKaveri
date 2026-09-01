@@ -35,6 +35,6 @@ services:
       - key: GEMINI_MODEL
         value: "gemini-2.5-flash"
       - key: CORS_ORIGINS
-        value: "https://vercel.app,http://localhost:3000,http://127.0.0.1:3000"
+        value: "https://kaveri.srimanth.me,https://srimanth.me,https://vercel.app,https://projectkaveri.onrender.com,http://localhost:3000,http://127.0.0.1:3000"
       - key: CORS_ORIGIN_REGEX
-        value: "https://.*\\.vercel\\.app|http://localhost:\\d+|http://127\\.0\\.0\\.1:\\d+"
+        value: "https://.*\\.srimanth\\.me|https://srimanth\\.me|https://.*\\.vercel\\.app|https://.*\\.onrender\\.com|http://localhost:\\d+|http://127\\.0\\.0\\.1:\\d+"
