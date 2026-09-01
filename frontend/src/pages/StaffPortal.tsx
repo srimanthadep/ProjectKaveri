@@ -10,6 +10,7 @@ import { Card } from '../components/ui/Card';
 import { Input } from '../components/ui/Input';
 import { Dialog } from '../components/ui/Dialog';
 import { useToast } from '../components/ui/Toast';
+import { CustomDropdown } from '../components/ui/CustomDropdown';
 import { KeycardModal } from '../components/common/KeycardModal';
 import { BookingVoucherModal } from '../components/common/BookingVoucherModal';
 import {
@@ -237,19 +238,17 @@ export const StaffPortal: React.FC<{ onNavigate: (view: string) => void }> = ({ 
 
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-[#E3DDD1] shadow-2xs">
-            <span className="text-2xs font-semibold uppercase tracking-wider text-[#8C877D]">Sanctuary:</span>
-            <select
+          <div className="w-56">
+            <CustomDropdown
               value={selectedPropertyId}
-              onChange={(e) => setSelectedPropertyId(e.target.value as PropertyId)}
-              className="bg-transparent text-xs font-semibold text-[#183028] focus:outline-none cursor-pointer"
-            >
-              {properties.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
+              onChange={(val) => setSelectedPropertyId(val as PropertyId)}
+              buttonClassName="h-9.5 text-xs font-semibold bg-white border-[#E3DDD1]"
+              options={properties.map((p) => ({
+                value: p.id,
+                label: p.name,
+                sublabel: `${p.state} · ${p.location}`,
+              }))}
+            />
           </div>
 
           <Button
@@ -343,18 +342,18 @@ export const StaffPortal: React.FC<{ onNavigate: (view: string) => void }> = ({ 
             />
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <span className="text-2xs font-semibold uppercase tracking-wider text-[#8C877D]">Status:</span>
-            <select
+          <div className="w-48">
+            <CustomDropdown
               value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className="h-8.5 px-3 rounded-lg border border-[#D9D3C7] bg-white text-xs text-[#183028] font-medium focus:outline-none cursor-pointer"
-            >
-              <option value="all">All Reservations</option>
-              <option value="confirmed">Confirmed Arrivals</option>
-              <option value="checked_in">In-House Guests</option>
-              <option value="checked_out">Checked Out</option>
-            </select>
+              onChange={(val) => setFilterStatus(val)}
+              buttonClassName="h-9 text-xs bg-white border-[#D9D3C7]"
+              options={[
+                { value: 'all', label: 'All Reservations' },
+                { value: 'confirmed', label: 'Confirmed Arrivals' },
+                { value: 'checked_in', label: 'In-House Guests' },
+                { value: 'checked_out', label: 'Checked Out' },
+              ]}
+            />
           </div>
         </div>
 
@@ -551,36 +550,36 @@ export const StaffPortal: React.FC<{ onNavigate: (view: string) => void }> = ({ 
           />
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-label block">Number of Nights</label>
-              <select
+            <div>
+              <CustomDropdown
+                label="Number of Nights"
                 value={walkInNights}
-                onChange={(e) => setWalkInNights(parseInt(e.target.value, 10))}
-                className="w-full h-10 px-3 rounded-lg border border-[#D9D3C7] bg-white text-xs font-medium text-[#183028]"
-              >
-                <option value={1}>1 Night</option>
-                <option value={2}>2 Nights</option>
-                <option value={3}>3 Nights</option>
-                <option value={4}>4 Nights</option>
-                <option value={5}>5 Nights</option>
-              </select>
+                onChange={(val) => setWalkInNights(val as number)}
+                buttonClassName="h-10 text-xs"
+                options={[
+                  { value: 1, label: '1 Night' },
+                  { value: 2, label: '2 Nights' },
+                  { value: 3, label: '3 Nights' },
+                  { value: 4, label: '4 Nights' },
+                  { value: 5, label: '5 Nights' },
+                ]}
+              />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-label block">Assign Clean Room</label>
-              <select
-                required
+            <div>
+              <CustomDropdown
+                label="Assign Clean Room"
                 value={walkInRoomNumber}
-                onChange={(e) => setWalkInRoomNumber(e.target.value)}
-                className="w-full h-10 px-3 rounded-lg border border-[#D9D3C7] bg-white text-xs font-semibold text-[#2C6B4D]"
-              >
-                <option value="">-- Choose Ready Room --</option>
-                {cleanAvailableRooms.map((r) => (
-                  <option key={r.number} value={r.number}>
-                    Room #{r.number} ({r.category.toUpperCase()})
-                  </option>
-                ))}
-              </select>
+                onChange={(val) => setWalkInRoomNumber(val as string)}
+                placeholder="-- Choose Ready Room --"
+                buttonClassName="h-10 text-xs text-[#2C6B4D] font-semibold"
+                options={cleanAvailableRooms.map((r) => ({
+                  value: r.number,
+                  label: `Room #${r.number}`,
+                  sublabel: `${r.category.toUpperCase()} · Cleaned`,
+                  badge: `${r.cleanlinessScore}%`,
+                }))}
+              />
             </div>
           </div>
 

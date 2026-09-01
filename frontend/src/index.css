@@ -343,3 +343,71 @@
 
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ==========================================================================
+   Infinite Horizontal Scroll / Marquee for Reviews
+   ========================================================================== */
+
+@keyframes infinite-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-infinite-scroll {
+  display: flex;
+  width: max-content;
+  animation: infinite-scroll 38s linear infinite;
+}
+
+.animate-infinite-scroll:hover {
+  animation-play-state: paused;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+/* ==========================================================================
+   Global Dropdown & Select Luxury Styling
+   ========================================================================== */
+
+select {
+  cursor: pointer;
+  background-color: #FAF8F5;
+  color: #1D3E37;
+  font-family: inherit;
+}
+
+select option {
+  background-color: #FAF8F5;
+  color: #1D3E37;
+  padding: 10px 14px;
+  font-size: 0.8125rem;
+}
+
+select option:hover,
+select option:focus,
+select option:checked {
+  background-color: #1D3E37 !important;
+  color: #FAF8F5 !important;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-dropdown {
+  animation: dropdownFadeIn 160ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

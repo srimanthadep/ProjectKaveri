@@ -7,6 +7,7 @@ import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { useToast } from '../components/ui/Toast';
+import { CustomDropdown } from '../components/ui/CustomDropdown';
 import {
   ResponsiveContainer,
   BarChart,
@@ -52,7 +53,21 @@ export const ManagerPortal: React.FC<{ onNavigate: (view: string) => void }> = (
   const [pendingRoomChange, setPendingRoomChange] = useState<{ roomNumber: string } | null>(null);
 
   // Selected property analytics data
-  const propAnalytics = analytics[selectedPropertyId] || analytics.coorg;
+  const propAnalytics = analytics[selectedPropertyId] || analytics.coorg || {
+    propertyId: selectedPropertyId,
+    propertyName: 'Kaveri Sanctuary',
+    monthlyOccupancyRate: 80.0,
+    adr: 5600,
+    revpar: 4480,
+    monthlyRevenue: 480000,
+    totalBookings: 12,
+    activeGuests: 8,
+    monthlyTrend: [
+      { month: 'Apr 2026', revenue: 420000, occupancy: 76.2, adr: 5400 },
+      { month: 'May 2026', revenue: 450000, occupancy: 81.4, adr: 5500 },
+      { month: 'Jun 2026', revenue: 480000, occupancy: 80.0, adr: 5600 },
+    ],
+  };
 
   // Property room units
   const currentPropertyRooms = roomUnits.filter((r) => r.propertyId === selectedPropertyId);
@@ -120,19 +135,17 @@ export const ManagerPortal: React.FC<{ onNavigate: (view: string) => void }> = (
         </div>
 
         {/* Property Switcher */}
-        <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-[#E3DDD1] shadow-2xs">
-          <span className="text-2xs font-semibold uppercase tracking-wider text-[#8C877D]">Sanctuary:</span>
-          <select
+        <div className="w-64">
+          <CustomDropdown
             value={selectedPropertyId}
-            onChange={(e) => setSelectedPropertyId(e.target.value as PropertyId)}
-            className="bg-transparent text-xs font-semibold text-[#183028] focus:outline-none cursor-pointer"
-          >
-            {properties.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name} ({p.state})
-              </option>
-            ))}
-          </select>
+            onChange={(val) => setSelectedPropertyId(val as PropertyId)}
+            buttonClassName="h-9.5 text-xs font-semibold bg-white border-[#E3DDD1]"
+            options={properties.map((p) => ({
+              value: p.id,
+              label: p.name,
+              sublabel: `${p.state} · ${p.location}`,
+            }))}
+          />
         </div>
       </div>
 
@@ -381,17 +394,20 @@ export const ManagerPortal: React.FC<{ onNavigate: (view: string) => void }> = (
             </div>
 
             {/* Status Filter */}
-            <select
-              value={auditFilterStatus}
-              onChange={(e) => setAuditFilterStatus(e.target.value)}
-              className="h-8.5 px-3 rounded-lg border border-[#D9D3C7] bg-white text-xs font-medium text-[#183028]"
-            >
-              <option value="all">All Statuses</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="checked_in">In-House</option>
-              <option value="checked_out">Completed</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
+            <div className="w-40">
+              <CustomDropdown
+                value={auditFilterStatus}
+                onChange={(val) => setAuditFilterStatus(val)}
+                buttonClassName="h-8.5 text-xs bg-white border-[#D9D3C7]"
+                options={[
+                  { value: 'all', label: 'All Statuses' },
+                  { value: 'confirmed', label: 'Confirmed' },
+                  { value: 'checked_in', label: 'In-House' },
+                  { value: 'checked_out', label: 'Completed' },
+                  { value: 'cancelled', label: 'Cancelled' },
+                ]}
+              />
+            </div>
 
             {/* Sort Order */}
             <Button

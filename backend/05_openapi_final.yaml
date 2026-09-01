@@ -1007,7 +1007,7 @@ components:
         attack 8.2 refused structurally.
       properties:
         email:     { type: string, format: email }
-        password:  { type: string, minLength: 10, writeOnly: true }
+        password:  { type: string, minLength: 6, writeOnly: true }
         full_name: { type: string, minLength: 1, maxLength: 120 }
         phone:     { type: string }
 

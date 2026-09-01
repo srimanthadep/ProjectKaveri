@@ -1,12 +1,14 @@
 import React, { useState, useMemo } from 'react';
 import { useHotel } from '../context/HotelContext';
 import { Property, PropertyId, RoomCategory } from '../types';
-import { ROOM_TYPES_DATA, TESTIMONIALS_DATA } from '../data/mockData';
+import { ROOM_TYPES_DATA } from '../data/mockData';
 import { formatINR } from '../lib/utils';
+import { api } from '../lib/api';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { Card } from '../components/ui/Card';
 import { Stack } from '../components/ui/Stack';
+import { CustomDropdown } from '../components/ui/CustomDropdown';
 import {
   MapPin,
   Search,
@@ -46,6 +48,87 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
     return d.toISOString().split('T')[0];
   });
   const [guests, setGuests] = useState('2');
+
+  // Live reviews state
+  const [reviewsList, setReviewsList] = useState<Array<{ id: string; guestName: string; guestLocation: string; propertyName: string; rating: number; title: string; comment: string }>>([
+    {
+      id: 'rev-1',
+      guestName: 'Aarav Sharma',
+      guestLocation: 'Bengaluru, Karnataka',
+      propertyName: 'Kaveri Riverside, Coorg',
+      rating: 5,
+      title: 'The ultimate plantation sanctuary',
+      comment: 'Waking up to the morning mist drifting over the Kaveri river and sipping single-estate arabica on our private veranda was pure poetry.',
+    },
+    {
+      id: 'rev-2',
+      guestName: 'Anita Desai',
+      guestLocation: 'Mumbai, Maharashtra',
+      propertyName: 'Kaveri Hilltop, Ooty',
+      rating: 5,
+      title: 'Highland heritage at its finest',
+      comment: 'The stone fireplaces, Victorian brass detailing, and Nilgiri tea degustation transported us to a bygone era of slow, thoughtful luxury.',
+    },
+    {
+      id: 'rev-3',
+      guestName: 'Elena Rossi',
+      guestLocation: 'Milan, Italy',
+      propertyName: 'Kaveri Backwater, Alleppey',
+      rating: 5,
+      title: 'Private houseboats beyond imagination',
+      comment: 'Having our own solar-powered luxury kettuvallam for an intimate sunset dinner on the backwaters while listening to classical Carnatic flute was magical.',
+    },
+    {
+      id: 'rev-4',
+      guestName: 'Vikramaditya Rao',
+      guestLocation: 'Hyderabad, Telangana',
+      propertyName: 'Kaveri Riverside, Coorg',
+      rating: 5,
+      title: 'Flawless culinary and nature immersion',
+      comment: 'The Pandi curry infused with hand-crushed black pepper and the private riverside bonfire under the stars made this our most restorative getaway in years.',
+    },
+    {
+      id: 'rev-5',
+      guestName: 'Sophie Van Der Meer',
+      guestLocation: 'Amsterdam, Netherlands',
+      propertyName: 'Kaveri Backwater, Alleppey',
+      rating: 5,
+      title: 'Eco-conscious serenity done right',
+      comment: 'The gentle hum of the electric hull gliding past coconut groves and the exquisite spice-infused karimeen banquet was nothing short of world-class.',
+    },
+    {
+      id: 'rev-6',
+      guestName: 'Dr. Meenakshi Sundaram',
+      guestLocation: 'Chennai, Tamil Nadu',
+      propertyName: 'Kaveri Hilltop, Ooty',
+      rating: 5,
+      title: 'Botanical bliss in the clouds',
+      comment: 'The heritage library, curated eucalyptus mist walks, and panoramic views of the Blue Mountains make Kaveri Hilltop unmatched in Southern India.',
+    },
+  ]);
+
+  React.useEffect(() => {
+    // Fetch reviews from all 3 properties (no global /reviews endpoint)
+    Promise.all([
+      api.reviews.list(1, { limit: 5 }).catch(() => ({ items: [] })),
+      api.reviews.list(2, { limit: 5 }).catch(() => ({ items: [] })),
+      api.reviews.list(3, { limit: 5 }).catch(() => ({ items: [] })),
+    ]).then(([r1, r2, r3]) => {
+      const allReviews = [...(r1.items || []), ...(r2.items || []), ...(r3.items || [])];
+      if (allReviews.length > 0) {
+        const liveMapped = allReviews.map((r) => ({
+          id: `rev-${r.id}`,
+          guestName: r.guest_name || 'Verified Kaveri Patron',
+          guestLocation: 'India',
+          propertyName: 'Kaveri Stays Sanctuary',
+          rating: r.rating || 5,
+          title: r.rating === 5 ? 'Exceptional Luxury Sanctuary' : 'Memorable Stay Experience',
+          comment: r.comment || 'Enjoyed our stay at Kaveri Stays. Outstanding hospitality and serene ambiance.',
+        }));
+        setReviewsList((prev) => [...liveMapped, ...prev]);
+      }
+    }).catch(() => {});
+  }, []);
 
   // Property detail modal state
   const [activePropertyModal, setActivePropertyModal] = useState<Property | null>(null);
@@ -246,41 +329,35 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
 
               <form onSubmit={handleSearchAvailability} className="space-y-3 sm:space-y-3.5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-                  <div className="relative">
-                    <label className="text-2xs uppercase tracking-wider font-semibold text-[#8C877D] block mb-1">
-                      Destination
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={selectedDest}
-                        onChange={(e) => setSelectedDest(e.target.value as PropertyId)}
-                        className="w-full rounded-lg border border-[#D9D3C7] bg-[#FAF8F5]/60 hover:bg-white pl-3 pr-8 py-2 text-xs font-medium text-[#183028] focus:outline-none focus:border-[#183028] focus:bg-white cursor-pointer transition-colors appearance-none"
-                      >
-                        <option value="coorg">Kaveri Riverside (Coorg)</option>
-                        <option value="ooty">Kaveri Hilltop (Ooty)</option>
-                        <option value="alleppey">Kaveri Backwater (Alleppey)</option>
-                      </select>
-                      <MapPin className="h-3.5 w-3.5 text-[#8C877D] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                    </div>
+                  <div>
+                    <CustomDropdown
+                      label="Destination"
+                      value={selectedDest}
+                      onChange={(val) => setSelectedDest(val as PropertyId)}
+                      leftIcon={<MapPin className="h-3.5 w-3.5" />}
+                      buttonClassName="h-10 text-xs bg-[#FAF8F5]/80 hover:bg-white border-[#D9D3C7]"
+                      options={[
+                        { value: 'coorg', label: 'Kaveri Riverside', sublabel: 'Coorg, Karnataka' },
+                        { value: 'ooty', label: 'Kaveri Hilltop', sublabel: 'Ooty, Tamil Nadu' },
+                        { value: 'alleppey', label: 'Kaveri Backwater', sublabel: 'Alleppey, Kerala' },
+                      ]}
+                    />
                   </div>
 
-                  <div className="relative">
-                    <label className="text-2xs uppercase tracking-wider font-semibold text-[#8C877D] block mb-1">
-                      Guests
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={guests}
-                        onChange={(e) => setGuests(e.target.value)}
-                        className="w-full rounded-lg border border-[#D9D3C7] bg-[#FAF8F5]/60 hover:bg-white pl-3 pr-8 py-2 text-xs font-medium text-[#183028] focus:outline-none focus:border-[#183028] focus:bg-white cursor-pointer transition-colors appearance-none"
-                      >
-                        <option value="1">1 Guest (Solo Traveler)</option>
-                        <option value="2">2 Guests (Couple / Double)</option>
-                        <option value="3">3 Guests (Triple)</option>
-                        <option value="4">4 Guests (Private Suite)</option>
-                      </select>
-                      <Users className="h-3.5 w-3.5 text-[#8C877D] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                    </div>
+                  <div>
+                    <CustomDropdown
+                      label="Guests"
+                      value={guests}
+                      onChange={(val) => setGuests(String(val))}
+                      leftIcon={<Users className="h-3.5 w-3.5" />}
+                      buttonClassName="h-10 text-xs bg-[#FAF8F5]/80 hover:bg-white border-[#D9D3C7]"
+                      options={[
+                        { value: '1', label: '1 Guest', sublabel: 'Solo Sanctuary' },
+                        { value: '2', label: '2 Guests', sublabel: 'Couple / Double' },
+                        { value: '3', label: '3 Guests', sublabel: 'Triple' },
+                        { value: '4', label: '4 Guests', sublabel: 'Private Suite' },
+                      ]}
+                    />
                   </div>
                 </div>
 
@@ -343,11 +420,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
             </div>
 
             {/* Subtitle Interaction Cue */}
-            <div className="flex items-center justify-between w-full max-w-lg sm:max-w-xl lg:max-w-[640px] mt-2.5 sm:mt-3 px-1 text-2xs text-[#8C877D]">
-              <span className="flex items-center gap-1.5 text-[11px] sm:text-2xs">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#2C6B4D] animate-pulse" />
-                Tap or swipe cards to explore
-              </span>
+            <div className="flex items-center justify-end w-full max-w-lg sm:max-w-xl lg:max-w-[640px] mt-2.5 sm:mt-3 px-1 text-2xs text-[#8C877D]">
               <button
                 type="button"
                 onClick={() => onNavigate('booking-engine')}
@@ -415,10 +488,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       <section id="destinations" className="py-10 sm:py-20 bg-white border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-12">
           <div className="text-center space-y-1.5 sm:space-y-3 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-2xs sm:text-xs font-semibold uppercase tracking-wider">
-              <Compass className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
-              <span>Three Premier Sanctuaries</span>
-            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
               Explore Our Signature Destinations
             </h2>
@@ -534,10 +603,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       <section className="py-10 sm:py-20 bg-slate-50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-12">
           <div className="text-center space-y-1.5 sm:space-y-3 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-2xs sm:text-xs font-semibold uppercase tracking-wider">
-              <BedDouble className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
-              <span>Architectural Living</span>
-            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
               Boutique Room & Villa Categories
             </h2>
@@ -609,13 +674,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
       </section>
 
       {/* 5. Verified Guest Reviews / Social Proof */}
-      <section className="py-10 sm:py-20 bg-white border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-12">
+      <section className="py-12 sm:py-24 bg-white border-t border-slate-200 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-10">
           <div className="text-center space-y-1.5 sm:space-y-3 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-2xs sm:text-xs font-semibold uppercase tracking-wider">
-              <Star className="w-3 sm:w-3.5 h-3 sm:h-3.5 fill-emerald-600 text-emerald-600" />
-              <span>Verified Patron Experiences</span>
-            </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
               Words from Our Honoured Guests
             </h2>
@@ -623,37 +684,40 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenBook
               Read authentic memoirs from leaders, artists, and families who have found sanctuary at Kaveri Stays.
             </p>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
-            {TESTIMONIALS_DATA.map((t) => (
+        {/* Infinite Horizontal Carousel Container */}
+        <div className="mt-8 sm:mt-10 relative w-full marquee-mask overflow-hidden py-4">
+          <div className="animate-infinite-scroll flex gap-4 sm:gap-6">
+            {[...reviewsList, ...reviewsList].map((t, idx) => (
               <Card
-                key={t.id}
-                className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 bg-slate-50 space-y-3 sm:space-y-4 relative flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
+                key={`${t.id}-${idx}`}
+                className="w-[290px] sm:w-[380px] shrink-0 p-5 sm:p-7 rounded-2xl sm:rounded-3xl border border-[#E8E4DC] bg-[#FAF8F5] space-y-4 relative flex flex-col justify-between shadow-2xs hover:shadow-md hover:border-[#D5CDBC] transition-all cursor-default"
               >
-                <div className="space-y-2 sm:space-y-3">
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-3.5 sm:w-4 h-3.5 sm:h-4 fill-amber-400" />
-                    ))}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1 text-amber-500">
+                      {[...Array(t.rating)].map((_, i) => (
+                        <Star key={i} className="w-3.5 sm:w-4 h-3.5 sm:h-4 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <span className="text-[10px] font-mono font-medium text-slate-400 uppercase tracking-wider">Verified Stay</span>
                   </div>
-                  <h4 className="font-serif font-bold text-xs sm:text-base text-slate-900">
+                  <h4 className="font-serif font-bold text-sm sm:text-base text-slate-900 leading-snug">
                     "{t.title}"
                   </h4>
-                  <p className="text-2xs sm:text-xs text-slate-600 leading-relaxed italic line-clamp-3 sm:line-clamp-none">
+                  <p className="text-xs text-slate-600 leading-relaxed italic line-clamp-4">
                     "{t.comment}"
                   </p>
                 </div>
 
-                <div className="pt-2.5 sm:pt-4 border-t border-slate-200 flex items-center gap-2.5 sm:gap-3">
-                  <img
-                    src={t.avatar}
-                    alt={t.guestName}
-                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border border-emerald-400/40"
-                  />
+                <div className="pt-4 border-t border-[#E8E4DC]/80 flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-2xs sm:text-xs text-slate-900">{t.guestName}</div>
-                    <div className="text-[9px] sm:text-[10px] text-slate-500">{t.guestLocation}</div>
-                    <div className="text-[9px] sm:text-[10px] text-emerald-700 font-semibold">{t.propertyName}</div>
+                    <div className="font-bold text-xs sm:text-sm text-slate-900 font-serif">{t.guestName}</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500">{t.guestLocation}</div>
+                  </div>
+                  <div className="text-[10px] sm:text-xs text-emerald-800 font-semibold px-2.5 py-1 rounded-full bg-emerald-100/60">
+                    {t.propertyName}
                   </div>
                 </div>
               </Card>

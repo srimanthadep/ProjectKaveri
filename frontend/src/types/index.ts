@@ -61,7 +61,7 @@ export interface RoomUnit {
   lastCleaned?: string;
 }
 
-export type BookingStatus = 'confirmed' | 'checked_in' | 'checked_out' | 'cancelled';
+export type BookingStatus = 'confirmed' | 'checked_in' | 'checked_out' | 'cancelled' | 'no_show';
 export type PaymentMethod = 'Credit/Debit Card' | 'UPI' | 'Net Banking' | 'Pay at Hotel';
 
 export interface Review {

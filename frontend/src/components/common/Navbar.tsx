@@ -232,7 +232,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => onNavigate(getDashboardViewForRole(user.role))}
                 className="flex cursor-pointer items-center gap-2.5 rounded-xl p-1 pr-2 text-left transition-colors hover:bg-[#F4F2ED]"
               >
-                <Avatar src={user.avatarUrl} alt={user.name} size="sm" />
+                <Avatar alt={user.name} size="sm" />
                 <span className="hidden leading-tight sm:block">
                   <span className="block text-xs font-semibold text-[#1D3E37]">
                     {user.name.split(' ')[0]}

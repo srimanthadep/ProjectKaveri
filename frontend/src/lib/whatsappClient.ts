@@ -47,8 +47,7 @@ export interface WaLogItem {
 
 const WA_BASE = (import.meta as any).env?.VITE_WHATSAPP_API_URL || 'http://localhost:4500';
 const SERVICE_TOKEN =
-  (import.meta as any).env?.VITE_WHATSAPP_SERVICE_TOKEN ||
-  '1TaVPInRB9WqvZy0gJArGpeFbHDoCtl2wKiYhcOX';
+  (import.meta as any).env?.VITE_WHATSAPP_SERVICE_TOKEN || '';
 
 const authHeaders = {
   'Content-Type': 'application/json',

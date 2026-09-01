@@ -68,12 +68,12 @@ export const OwnerPortal: React.FC<{ onNavigate: (view: string) => void }> = ({ 
 
   // Combined monthly trend for all properties
   const multiPropertyMonthlyTrend = useMemo(() => {
-    const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+    const months = ['Apr', 'May', 'Jun'];
     return months.map((m, idx) => ({
       month: m,
-      coorg: analytics.coorg.monthlyTrend[idx]?.revenue || 0,
-      ooty: analytics.ooty.monthlyTrend[idx]?.revenue || 0,
-      alleppey: analytics.alleppey.monthlyTrend[idx]?.revenue || 0,
+      coorg: analytics.coorg?.monthlyTrend?.[idx]?.revenue || 0,
+      ooty: analytics.ooty?.monthlyTrend?.[idx]?.revenue || 0,
+      alleppey: analytics.alleppey?.monthlyTrend?.[idx]?.revenue || 0,
     }));
   }, [analytics]);
 

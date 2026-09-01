@@ -13,6 +13,7 @@ import { Tabs } from '../components/ui/Tabs';
 import { Dialog } from '../components/ui/Dialog';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { useToast } from '../components/ui/Toast';
+import { CustomDropdown } from '../components/ui/CustomDropdown';
 import { BookingVoucherModal } from '../components/common/BookingVoucherModal';
 import { ReviewModal } from '../components/common/ReviewModal';
 import {
@@ -117,6 +118,16 @@ export const GuestPortal: React.FC<GuestPortalProps> = ({
   const activeStays = allGuestBookings.filter((b) => b.status === 'checked_in');
   const pastStays = allGuestBookings.filter((b) => b.status === 'checked_out' || b.status === 'cancelled');
 
+  // Calculate completed nights stayed
+  const nightsStayed = useMemo(() => {
+    if (typeof user?.lifetimeNights === 'number') {
+      return user.lifetimeNights;
+    }
+    return allGuestBookings
+      .filter((b) => b.status === 'checked_out')
+      .reduce((sum, b) => sum + (b.nights || calculateNights(b.checkInDate, b.checkOutDate) || 0), 0);
+  }, [user?.lifetimeNights, allGuestBookings]);
+
   const handleConfirmReservation = async () => {
     if (!user) {
       error('Sign In Required', 'Please sign in or register to complete your reservation.');
@@ -154,8 +165,8 @@ export const GuestPortal: React.FC<GuestPortalProps> = ({
       setConfirmedBooking(newBooking);
       setIsReservationModalOpen(false);
       success('Reservation Confirmed', `Booking ${newBooking.voucherCode} created successfully!`);
-    } catch {
-      error('Booking Failed', 'Unable to record reservation. Please retry.');
+    } catch (err: any) {
+      error('Booking Failed', err?.message || 'Unable to record reservation. Please retry.');
     } finally {
       setIsBookingSubmitting(false);
     }
@@ -198,7 +209,7 @@ export const GuestPortal: React.FC<GuestPortalProps> = ({
         <div className="flex items-center gap-3 bg-white/10 p-3.5 rounded-2xl backdrop-blur-md border border-white/20">
           <div className="text-center px-2">
             <div className="text-[10px] text-emerald-300 uppercase font-bold tracking-wider">Nights Stayed</div>
-            <div className="text-xl font-serif font-bold text-white">{user?.lifetimeNights || 8}</div>
+            <div className="text-xl font-serif font-bold text-white">{nightsStayed}</div>
           </div>
           <div className="h-8 w-px bg-white/20" />
           <div className="text-center px-2">
@@ -278,22 +289,17 @@ export const GuestPortal: React.FC<GuestPortalProps> = ({
               </div>
 
               {/* Destination Selector */}
-              <div className="space-y-1.5">
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
-                  Select Sanctuary
-                </label>
-                <select
-                  value={selectedPropertyId}
-                  onChange={(e) => setSelectedPropertyId(e.target.value as PropertyId)}
-                  className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-900 focus:ring-2 focus:ring-emerald-500"
-                >
-                  {properties.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name} ({p.state})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <CustomDropdown
+                label="Select Sanctuary"
+                value={selectedPropertyId}
+                onChange={(val) => setSelectedPropertyId(val as PropertyId)}
+                options={properties.map((p) => ({
+                  value: p.id,
+                  label: p.name,
+                  sublabel: `${p.state} · ${p.location}`,
+                  badge: `${p.rating} ★`,
+                }))}
+              />
 
               {/* Date Pickers */}
               <div className="grid grid-cols-2 gap-3">
@@ -312,21 +318,17 @@ export const GuestPortal: React.FC<GuestPortalProps> = ({
               </div>
 
               {/* Guests Count */}
-              <div className="space-y-1.5">
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
-                  Guests Count
-                </label>
-                <select
-                  value={guestsCount}
-                  onChange={(e) => setGuestsCount(parseInt(e.target.value, 10))}
-                  className="w-full h-11 px-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-900 focus:ring-2 focus:ring-emerald-500"
-                >
-                  <option value={1}>1 Guest</option>
-                  <option value={2}>2 Guests (Standard / Deluxe)</option>
-                  <option value={3}>3 Guests (Deluxe / Suite)</option>
-                  <option value={4}>4 Guests (Presidential Suite)</option>
-                </select>
-              </div>
+              <CustomDropdown
+                label="Guests Count"
+                value={guestsCount}
+                onChange={(val) => setGuestsCount(val as number)}
+                options={[
+                  { value: 1, label: '1 Guest', sublabel: 'Solo Traveler Sanctuary' },
+                  { value: 2, label: '2 Guests', sublabel: 'Standard / Deluxe Couple Suite' },
+                  { value: 3, label: '3 Guests', sublabel: 'Deluxe / Heritage Suite' },
+                  { value: 4, label: '4 Guests', sublabel: 'Presidential Estate' },
+                ]}
+              />
 
               {/* Live Tariff Summary Box */}
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-xs">

@@ -108,7 +108,7 @@ export const PortalHeader: React.FC<PortalHeaderProps> = ({ currentView, onNavig
               aria-expanded={menuOpen}
               className="flex items-center gap-2.5 rounded-xl border border-transparent py-1 pl-1 pr-2 transition-colors hover:border-[#E7E3DA] hover:bg-white"
             >
-              <Avatar src={user?.avatarUrl} alt={user?.name} size="sm" />
+              <Avatar alt={user?.name} size="sm" />
               <span className="hidden text-left leading-tight sm:block">
                 <span className="block text-xs font-semibold text-[#1D3E37]">
                   {user?.name?.split(' ')[0] ?? 'Guest'}
@@ -130,7 +130,7 @@ export const PortalHeader: React.FC<PortalHeaderProps> = ({ currentView, onNavig
               >
                 {/* Identity block */}
                 <div className="flex items-center gap-3 rounded-xl px-2.5 py-2.5">
-                  <Avatar src={user?.avatarUrl} alt={user?.name} size="md" />
+                  <Avatar alt={user?.name} size="md" />
                   <div className="min-w-0">
                     <div className="truncate text-sm font-semibold text-[#1D3E37]">
                       {user?.name ?? 'Guest'}

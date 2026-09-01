@@ -47,3 +47,25 @@ export function generateVoucherCode(): string {
 export function generateIdempotencyKey(): string {
   return 'IDEM_' + Math.random().toString(36).substring(2, 12).toUpperCase() + '_' + Date.now();
 }
+
+export const PROPERTY_ID_MAP: Record<number, 'coorg' | 'ooty' | 'alleppey'> = {
+  1: 'coorg',
+  2: 'ooty',
+  3: 'alleppey',
+};
+
+export const PROPERTY_SLUG_MAP: Record<string, number> = {
+  coorg: 1,
+  ooty: 2,
+  alleppey: 3,
+};
+
+export function propIdToSlug(id?: number | null): 'coorg' | 'ooty' | 'alleppey' | undefined {
+  if (!id) return undefined;
+  return PROPERTY_ID_MAP[id] || 'coorg';
+}
+
+export function slugToPropId(slug?: string | null): number {
+  if (!slug) return 1;
+  return PROPERTY_SLUG_MAP[slug.toLowerCase()] || 1;
+}

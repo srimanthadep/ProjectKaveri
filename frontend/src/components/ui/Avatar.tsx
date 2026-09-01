@@ -10,9 +10,7 @@ export interface AvatarProps {
   [key: string]: any;
 }
 
-export function Avatar({ src, alt = 'Avatar', fallback, size = 'md', className, ...props }: AvatarProps) {
-  const [hasError, setHasError] = React.useState(false);
-
+export function Avatar({ alt = 'Avatar', fallback, size = 'md', className, ...props }: AvatarProps) {
   const sizeClasses = {
     sm: 'w-8 h-8 text-2xs',
     md: 'w-10 h-10 text-xs',
@@ -40,17 +38,7 @@ export function Avatar({ src, alt = 'Avatar', fallback, size = 'md', className, 
       )}
       {...props}
     >
-      {src && !hasError ? (
-        <img
-          src={src}
-          alt={alt}
-          onError={() => setHasError(true)}
-          className="h-full w-full object-cover"
-          referrerPolicy="no-referrer"
-        />
-      ) : (
-        <span className="font-semibold tracking-[0.04em] text-[#E4EBE7]">{fallback || getInitials(alt)}</span>
-      )}
+      <span className="font-semibold tracking-[0.04em] text-[#E4EBE7]">{fallback || getInitials(alt)}</span>
     </div>
   );
 }

@@ -103,6 +103,10 @@ export const AuthPage: React.FC<AuthPageProps> = ({ initialMode = 'login', onNav
       error('Password Mismatch', 'Password and Confirm Password do not match.');
       return;
     }
+    if (password && password.length < 6) {
+      error('Password Requirement', 'Password must be at least 6 characters long.');
+      return;
+    }
 
     setIsLoading(true);
     try {

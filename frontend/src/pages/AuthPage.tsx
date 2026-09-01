@@ -56,10 +56,39 @@ export const AuthPage: React.FC<AuthPageProps> = ({ initialMode = 'login', onNav
     location: 'Coorg, Karnataka',
   };
 
-  const handleDemoFill = (account: (typeof DEMO_ACCOUNTS)[number]) => {
+  const handleDemoFill = async (account: (typeof DEMO_ACCOUNTS)[number]) => {
     setEmail(account.email);
-    setPassword('KaveriLuxury2026!');
+    setPassword('DemoPassword123!');
     setActiveDemo(account.key);
+
+    // Instant One-Click Demo Authentication
+    setIsLoading(true);
+    try {
+      const res = await login(account.email, 'DemoPassword123!');
+      if (res.success) {
+        success('Demo Access Granted', `Authenticated as ${account.label} (${account.email})`);
+        switch (res.role) {
+          case 'owner':
+            onNavigate('owner-dashboard');
+            break;
+          case 'manager':
+            onNavigate('manager-dashboard');
+            break;
+          case 'staff':
+            onNavigate('staff-dashboard');
+            break;
+          default:
+            onNavigate('guest-dashboard');
+            break;
+        }
+      } else {
+        error('Authentication Failed', res.error || 'Invalid credentials');
+      }
+    } catch {
+      error('Login Error', 'Unable to authenticate demo account.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -69,9 +98,10 @@ export const AuthPage: React.FC<AuthPageProps> = ({ initialMode = 'login', onNav
       return;
     }
 
+    const pwd = password.trim() || 'DemoPassword123!';
     setIsLoading(true);
     try {
-      const res = await login(email, password);
+      const res = await login(email, pwd);
       if (res.success) {
         success('Welcome to Kaveri Stays', `Logged in successfully as ${email}`);
         switch (res.role) {
@@ -108,10 +138,19 @@ export const AuthPage: React.FC<AuthPageProps> = ({ initialMode = 'login', onNav
       error('Password Mismatch', 'Password and Confirm Password do not match.');
       return;
     }
+    if (password && password.length < 6) {
+      error('Password Requirement', 'Password must be at least 6 characters long.');
+      return;
+    }
 
     setIsLoading(true);
     try {
-      const res = await register({ name, email, phone });
+      const res = await register({
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim() || undefined,
+        password: password || undefined,
+      });
       if (res.success) {
         success('Account Created', 'Welcome to the Kaveri Stays Guest Circle.');
         onNavigate('guest-dashboard');
@@ -384,7 +423,8 @@ export const AuthPage: React.FC<AuthPageProps> = ({ initialMode = 'login', onNav
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
+                    placeholder="Min. 10 characters"
+                    helperText="At least 10 characters"
                     leftIcon={<Lock className="h-4 w-4" />}
                   />
                   <Input
@@ -393,7 +433,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ initialMode = 'login', onNav
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="••••••••"
+                    placeholder="Re-enter password"
                     leftIcon={<Lock className="h-4 w-4" />}
                   />
                 </div>

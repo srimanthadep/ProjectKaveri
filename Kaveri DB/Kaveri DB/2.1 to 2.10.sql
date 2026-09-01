@@ -1,0 +1,109 @@
+-- 2.1 Core Prerequisites & Custom Enumerated Types
+CREATE EXTENSION IF NOT EXISTS btree_gist;
+
+CREATE TYPE booking_status AS ENUM (
+    'confirmed', 
+    'checked_in', 
+    'checked_out', 
+    'cancelled', 
+    'no_show'
+);
+
+CREATE TYPE payment_method_type AS ENUM (
+    'card', 
+    'upi', 
+    'bank_transfer', 
+    'cash'
+);
+
+-- 2.2 Master Tables
+CREATE TABLE properties (
+    property_id     SERIAL PRIMARY KEY,
+    name            VARCHAR(100) NOT NULL UNIQUE,
+    city            VARCHAR(100) NOT NULL,
+    star_rating     SMALLINT NOT NULL CHECK (star_rating BETWEEN 1 AND 5)
+);
+
+CREATE TABLE room_types (
+    room_type_id    SERIAL PRIMARY KEY,
+    type_name       VARCHAR(50) NOT NULL UNIQUE,
+    max_occupancy   SMALLINT NOT NULL CHECK (max_occupancy > 0)
+);
+
+-- 2.3 to 2.6 Rooms and Bookings Schema
+CREATE TABLE rooms (
+    room_id         SERIAL PRIMARY KEY,
+    property_id     INT NOT NULL REFERENCES properties(property_id) ON DELETE RESTRICT,
+    room_number     VARCHAR(10) NOT NULL,
+    room_type_id    INT NOT NULL REFERENCES room_types(room_type_id) ON DELETE RESTRICT,
+    CONSTRAINT uq_property_room_number UNIQUE (property_id, room_number)
+);
+
+CREATE TABLE guests (
+    guest_id        SERIAL PRIMARY KEY,
+    full_name       VARCHAR(150) NOT NULL,
+    email           VARCHAR(255) NOT NULL,
+    phone           VARCHAR(30),
+    city            VARCHAR(100)
+);
+
+CREATE UNIQUE INDEX uq_guests_email_lower ON guests (LOWER(TRIM(email)));
+
+CREATE TABLE bookings (
+    booking_id      SERIAL PRIMARY KEY,
+    guest_id        INT NOT NULL REFERENCES guests(guest_id) ON DELETE RESTRICT,
+    room_id         INT NOT NULL REFERENCES rooms(room_id) ON DELETE RESTRICT,
+    checkin_date    DATE NOT NULL,
+    checkout_date   DATE NOT NULL,
+    stay_range      DATERANGE GENERATED ALWAYS AS (
+                        daterange(checkin_date, checkout_date, '[)')
+                    ) STORED,
+    guests_count    SMALLINT NOT NULL CHECK (guests_count > 0),
+    nightly_rate    NUMERIC(10, 2) NOT NULL CHECK (nightly_rate > 0),
+    status          booking_status NOT NULL DEFAULT 'confirmed',
+    notes           TEXT,
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    
+    CONSTRAINT valid_stay_dates CHECK (checkout_date > checkin_date),
+    CONSTRAINT no_overlapping_bookings EXCLUDE USING gist (
+        room_id WITH =,
+        stay_range WITH &&
+    ) WHERE (status NOT IN ('cancelled', 'no_show'))
+);
+
+-- 2.8 Rate Plans Table
+CREATE TABLE rate_plans (
+    rate_plan_id    SERIAL PRIMARY KEY,
+    property_id     INT NOT NULL REFERENCES properties(property_id) ON DELETE CASCADE,
+    room_type_id    INT NOT NULL REFERENCES room_types(room_type_id) ON DELETE CASCADE,
+    season_name     VARCHAR(50) NOT NULL,
+    validity_range  DATERANGE NOT NULL,
+    nightly_rate    NUMERIC(10, 2) NOT NULL CHECK (nightly_rate > 0),
+    CONSTRAINT no_overlapping_rates EXCLUDE USING gist (
+        property_id WITH =,
+        room_type_id WITH =,
+        validity_range WITH &&
+    )
+);
+
+-- 2.9 Payments and Post-Checkout Reviews
+CREATE TABLE payments (
+    payment_id      SERIAL PRIMARY KEY,
+    booking_id      INT NOT NULL REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    amount          NUMERIC(10, 2) NOT NULL CHECK (amount > 0),
+    payment_method  payment_method_type NOT NULL,
+    paid_at         TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE reviews (
+    review_id       SERIAL PRIMARY KEY,
+    booking_id      INT NOT NULL UNIQUE REFERENCES bookings(booking_id) ON DELETE CASCADE,
+    rating          SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    comments        TEXT,
+    reviewed_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- 2.10 Verify Functional Lowercase Index on Guests Email
+SELECT indexname, indexdef 
+FROM pg_indexes 
+WHERE tablename = 'guests';
