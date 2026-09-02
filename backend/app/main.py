@@ -64,7 +64,7 @@ app.include_router(reports_router)
 app.include_router(guests_router)
 app.include_router(ai_router)
 
-@app.get("/health", tags=["system"], summary="Health check")
+@app.api_route("/health", methods=["GET", "HEAD"], tags=["system"], summary="Health check")
 def health():
     return {"status": "ok", "service": "kaveri-stays-api"}
 
